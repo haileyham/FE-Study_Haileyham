@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3</title>
+</head>
+
+<body>
+
+  <script>
+
+    function 기계(이름){
+      this.name = 이름;
+      this.age = 15;
+      this.sayHi - function(){
+        console.log(`안녕하세요 ${this.name} 입니다`)
+      }
+    }
+
+
+    기계.prototype.gender = '남';
+
+
+    var 학생1 = new 기계('Park');
+    var 학생2 = new 기계('Kim');
+
+
+    var arr = [1,2,3]; //우리가 입력하는것
+    var arr = new Array(1,2,3); //실제 array가 만들어지는 
+    var obj = {name : 'kim'}; //입력하는 것
+    var obj = new Object(); //실제로 만들어지는것
+
+
+
+    //prototype의 특징 몇가지
+    //1. prototype은 constructor 함수에만 몰래 생성
+    //2. 내 부모님 유전자를 찾고 싶다면 __proto__를 출력
+    //3. __proto__를 직접 등록하면 object끼리 상속기능을 구현가능
+    //4. 실은 콘솔창에 prototype 정보들이 항상 출력
+
+    //1. prototype은 함수에만 생성됨 / 그냥 array, object에는 생성 안됨
+    //2. 내 부모 유전자(부모의 prototype)를 검사하고 싶다면 __proto__
+    학생1.__proto__ // 학생1의 부모가 출력됨 > 기계.prototype 출력됨
+    //3. __proto__를 이용해 부모님 강제 등록하기
+
+    var 부모 = {name : 'Kim'};
+    var 자식 = {};
+    //서로 부모자식 관계를 등록할 수 있음 / 위의 것은 그냥 object라 prototype도 없을 때 등록하는 법
+    자식.__proto__ = 부모; //나의 부모유전자는 얘로 해주세요~(실제로 쓰지는 않지만 개념만 이해하기)
+    
+    자식.name; //'Kim'
+
+    //4. 콘솔창에서 알려주는 prototype chain
+    //콘솔창에 학생1을 찍었을때 __proto__라고 나오는데 이것은 부모유전자(기계.prototype)을 나타내는 것임.
+    //콘솔창에 학생1 / 기계.prototype 각각의 __proto__는 각각 부모유전자를 담고있음. 학생1은 기계.prototype뜨고 / 기계.prototype은 Object.prototype (모든 JavaScript의 최종보스는 Object.prototype임)
+
+    
+
+  </script>
+</body>
+
+</html>

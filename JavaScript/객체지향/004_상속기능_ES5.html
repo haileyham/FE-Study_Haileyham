@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4</title>
+</head>
+<body>
+
+  <script>
+    //실은 상속기능인 prototype, function 기계(){}은 오래된 옛날(2009-2010년 이전) 방법임
+
+    //상속기능을 구현하는 ES5방법 : Object.create()
+
+    // Object.create(프로토타입object);
+
+    var 부모 = {
+      name : 'Kim',
+      age : 50 
+    } 
+
+    //부모가 가진 name,age를 그대로 물려받은 자식 object를 만들고 싶으면? 
+    // -constructor 함수를 만들거나
+    // -Obejct.create를 이용하거나
+
+    var 자식 = Object.create(부모);
+    //상속기능을 구현하는 ES5방법 : Object.create(물려받을 부모 object)
+    //prototype을 부모로 해주세요~ (var 자식에 값을 집어 넣은 것이 아님!)
+
+    //console창에 자식 찍었을 때 아무값도 안뜨는 이유! 위의 것은 prototype
+    자식.name //하면 "Kim" 나옴
+    // 왜냐면 부모prototype
+    //1. 자식 name 직접갖고잇나 > 2. 자식의 부모 prototype에는 있나 >> 상속
+    자식.age //50
+
+    // 자식의 age를 바꾸고 싶다면?
+    자식.age = 20;
+    자식 // {age:20}
+    자식.age //20
+
+    //자식.age에 20값 부여했고, 새로 프로퍼티 생성됐고, 본인먼저 확인해보니까 20출력
+
+    var 손자 = Object.create(자식); //자식을 prototype으로 쓰겠슴~ 
+    손자 // 아무것도 출력x, 값 부여한 것 없음
+    손자.name //"Kim"
+
+
+    // 결론 //물려주고 물려주고 물려주고~ 상속~ / 함수집어넣어도됨~
+    var 부모1 = {name : 'You', age : 50};
+
+    var 자식1 = Object.create(부모1);
+    자식1.age = 20;
+
+    var 손자1 = Object.create(자식1);
+    손자1.age;
+
+    //객체 리터럴 방식으로 생성된 객체의 경우, 기본 프로토타입인 Object.prototype을 상속
+  </script>
+</body>
+</html>

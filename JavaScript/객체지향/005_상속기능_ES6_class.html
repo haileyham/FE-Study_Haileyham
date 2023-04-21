@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5_class</title>
+</head>
+<body>
+  
+  <script>
+    //상속기능을 구현하는 ES6 방법 : class
+    //class
+    //constructor 만드는 신문법
+
+    class 부모{
+      constructor(aaa){ //constructor 메서드는 객체를 생성할 때 초기화를 담당
+        this.name = aaa;
+        this.sayHi = function(){ //(함수추가1) constructor에 추가(자식이 직접 함수를 가짐)
+          console.log('hello')
+        }
+      }
+      sayHi(){ //(함수추가2)부모 안에 바로 추가(여기에 쓰면 자식 오브젝트에 추가 안됨)
+          console.log('hello')
+        }
+    }
+    //함수를 추가하고 싶으면
+    // 1. constructor에 추가(자식이 직접 함수를 가짐) 
+    // 2. 부모 안에 바로 추가(여기에 쓰면 자식 오브젝트에 추가 안됨) / (부모.prototype에 추가됨) / 부모 유전자에 만들어두면 모든 자식들이 공통적으로 쓸 수 있는 내장함수를 만들 수 있고, 관리도 편리
+
+    부모.prototype.sayHello = function(){} //직접 수정할때 이렇게
+
+
+    var 자식 = new 부모('helloooo'); //constructor aaa파라미터타고 적용
+
+
+    자식.__proto__ //자식의 뿌리를 찾을때 / 자식의 부모prototype(부모유전자)가 출력 / 자식object가 누구로부터 상속받고 있는지 알려줌
+    부모.prototype //위아래 똑같은 말임
+
+    Object.getPrototypeOf(자식); //부모 prototype을 출력 / 자식object가 누구로부터 prototype을 상속받고 있는 지 알려줌
+
+
+    //객체지향 문법을 쓰는 이유?
+    //(이유1) object 여러개 만들어 쓰려고 하는 것
+
+  
+
+  </script>
+</body>
+</html>

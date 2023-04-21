@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>getter, setter</title>
+</head>
+<body>
+  
+  <script>
+
+    //age라는 자료를 꺼내고 싶으면?
+    //-자료를 꺼내는 법을 만들어서 꺼냅니다(유행하는 잡기술)
+    //
+    var 사람 = {
+      name : 'Park',
+      age : 30,
+      nextAge(){
+        return this.age + 1 //지금 age에서 1을 더해 출력하는 함수만들기 /this == 사람object 의미 / 지금 사람이라는 object 안에서 age에 +1 더해서 return해주세요
+      },
+      setAge(나이){ //파라미터 뚫기
+        this.age = 나이; //이렇게 되면 밖에서 사람.setAge(20);을 했을 때, 데이터 수정해주는 함수 작동해서 사람의 age값이 수정됨. 사람.age출력했을때 20으로 바뀐것을 확인할 수 있음
+        this.age = parseInt(나이); //이런식으로 안정장치 마련 가능
+      }
+    }
+
+    사람.age; //30 출력
+    //요즘 추세는 이렇게 바로 꺼내는 것이 아니라, 데이터를 꺼낼 쓸 수 있게 도와주는 것을 만들고 씀
+
+
+    //두개 동일 방식
+    사람.age + 1;
+    사람.nextAge(); //31출력
+
+    // nextAge() 왜 굳이 만들었을까?
+    // 함수를 만들어 object 데이터를 다루는 이유
+    // age에 긴 array가 들어갔을 수도 있고 등등
+    // 1. object 자료가 복잡할 때 이득
+    // 2. object 자료 수정시 ..
+
+
+    // 사람.age = 20; //이렇게 데이터 수정 바로 변경방법 말고
+    사람.setAge(20); //데이터 수정해주는 함수를 제작해서 이용 / 데이터를 꺼내거나, 수정하거나 그럴때 편리&실수방지&관리가능
+
+
+
+
+    // set은 데이터 변경하는 함수에 : setter / set함수들(setter) : 파라미터 1개 있어야함
+    // get은 데이터 꺼내쓰는 함수에 : getter / get함수들(getter): return이 있어야함 , 파라미터 없어야 함
+
+    var 사람2 = {
+      name : 'You',
+      age : 10,
+      get nextAge(){ //get은 데이터 꺼내쓰는 함수에 / get함수들(getter): return이 있어야함, 파라미터 없어야함
+        return this.age + 1 
+      },
+      set setAge(나이){ //이전에는 사람.setAge(20); 소괄호 쳐야하는데 set부여함으로서 ㄱㅊ / set함수들(setter) : 파라미터 1개 있어야함
+        this.age = parseInt(나이); 
+    }
+  }
+
+    사람2.setAge = '20'; //이전에는 사람.setAge(20); 소괄호 쳐야하는데 set부여함으로서 ㄱㅊ
+    사람2.nextAge; //이전에는 사람2.nextAge(); 소괄호 붙엿었음
+
+
+
+
+
+
+    class 사람3{
+      constructor(){
+        this.name = 'Lee';
+        this.age = 20;
+      }
+    }
+
+    var 사람a = new 사람3();
+
+
+
+    
+  </script>
+</body>
+</html>

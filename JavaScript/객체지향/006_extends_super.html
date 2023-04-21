@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>class를 복사하는 extends / super</title>
+</head>
+
+<body>
+  <script>
+    //class를 복사하는 extends / super
+    //super() / extends 용도를 외워두는 것이 중요!
+
+
+
+    //이거랑 유사한 class를 하나더 만들고 싶으면? extends(class상속)
+    // extends : class복사(상속)
+    // 그냥 class 하나 더 하드코딩하면 안됨? > 복사/상속할 값이 만들면 힘듦 > 그래서 extends로 class를 복사
+
+    //class / prototype / constructor 남에게 설명할 수 있움?ㅇ?
+
+    class 할아버지 {
+      constructor(name) {
+        this.성 = 'Kim';
+        this.이름 = name;
+      }
+      sayHi() { //할아버지.prototype에 추가됨
+        console.log('안녕 난할아버지의 sayHi');
+      }
+    }
+
+    var 할아버지1 = new 할아버지('만덕'); //할아버지 class가 지니고있는것 나옴 // 할아버지 {성: 'Kim', 이름: '만덕'}
+
+
+
+
+    /////// extends ///////
+    //위랑 유사한 class를 만들고 싶다면(할아버지의 속성들 그대로 물려받아서)
+
+    //오류발생 코드@@@
+    // class 아버지 extends 할아버지 { //아버지 class 만들건데 할아버지가 지닌 특성들 그대로 물려받아서 만들거임
+    //   constructor(){
+    //     this.나이 = 50;
+    //   }
+    // }
+
+    // var 아버지1 = new 아버지(); 
+    
+    //6_extends_super.html:32 Uncaught ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor
+    // at new 아버지 (006_extends_super.html:32:9)
+    // at 006_extends_super.html:36:16
+
+    // 오류뜸 이유????
+    // extends 해서 만든 class는 this 그냥 못씀
+    // super()다음에 써야함
+
+
+
+
+
+
+    // 밑에처럼 쓰기
+    /////// extends / super ///////
+
+    class 아버지 extends 할아버지 { //아버지 class 만들건데 할아버지가 지닌 특성들 그대로 물려받아서 만들거임
+      constructor(name) { //parameter 안써도 되는데 모를수있으니 할아버지 파라미터 그대로 써서 집어넣기
+        super(name); //물려받는 class의 constructor라는 뜻
+        this.나이 = 50;
+      }
+    }
+
+        //super(); 즉 여기서 물려받는건 할아버지 class의 constructor(name){}임 /밑에꺼 물려받음
+    // class 할아버지 {
+    //   constructor(name) {
+    //     this.성 = 'Kim';
+    //     this.이름 = name;
+    //   }
+    // }
+    // 만약 할아버지 파라미터 2개라면 아버지 constructor파라미터랑 super 파라미터도 똑같이 해주면됨
+
+    var 아버지1 = new 아버지(''); //   아버지 {성: 'Kim', 이름: undefined, 나이: 50}
+    //이름에 undefined를 출력하는 이유는? 인수집어넣지 않아서
+    //아버지1.sayHi() 사용가능 
+
+
+    var 아버지2 = new 아버지('안농'); //아버지 {성: 'Kim', 이름: '안농', 나이: 50}
+    //타고타고 할아버지까지 감~
+
+
+
+
+    
+    class 아버지지 extends 할아버지 { 
+      constructor(name) { 
+        super(name); //부모 class의 constructor를 의미
+        this.나이 = 50;
+      }
+      sayHi(){
+        console.log('안녕 저는 아버지의 sayHi!');
+        super.sayHi(); //= 부모prototype.sayHi() / 부모 class의 prototype을 의미 __proto__랑 유사 / 부모 prototype에 각인되어있는 sayHi출력해주세욧 / 상식으로만 알고있기
+        // super의 용도 2개인 것임. 첫번째가 위에 name이고 두번째가 부모.prototype가져오는것
+      }
+      //만약 아버지지안에 sayHi(){}없고, 콘솔창에 아버지3.sayHi()치면은 그냥 할아버지의 sayHi가 출력됨.
+    }
+
+    var 아버지3 = new 아버지지('만수');
+    // 아버지3.SayHi(); // console창에 입력하면 / 안녕 저는 아버지!
+
+
+  </script>
+</body>
+
+</html>

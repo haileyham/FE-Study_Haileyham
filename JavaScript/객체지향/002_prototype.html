@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2</title>
+</head>
+
+<body>
+
+  <script>
+    //부모 / constructor / 기계 
+    function 기계(이름) {
+      this.name = 이름;
+      this.age = 15;
+      this.sayHi = function () {
+        console.log(`안녕하세요 ${this.name} 입니다`)
+      }
+    }
+
+
+    //상속을 구현할 수 있는 또 하나의 문법 prototype
+    //prototype은 유전자
+    //기계(constructor)를 만들면 prototype이라는 공간이 자동 생성됨
+    기계.prototype //기계.유전자
+    //내가 키가 큼 > 부모로부터 받은 유전자
+    //prototype에 값을 추가하면 모든 자식들이 물려받기 가능
+
+
+
+    기계.prototype.gender = '남';
+    //풀어설명 : {기계.prototype}.gender = '남' {기계.prototype} 유전자에 gender 키(key)와 '남'; 값(value) 추가
+
+    // 학생1.gender 찍어도 "남"나옴 
+    // 학생1 에는 딱히 남을 넣지 않았는데도 기계에 넣었기 때문에 나옴.
+
+
+
+    //자식 (부모한테 상속받음) : 기계가 가지고 있는 name, age, sayHi속성들을 물려받음
+    var 학생1 = new 기계('Park');
+    var 학생2 = new 기계('Kim');
+
+
+    // 학생1.name;
+    // 학생1.gender;
+    // JS 실행 과정
+    // 1. 학생1이 직접 name을 가지고 있는가? > 실행
+    // 2. gender을 가지고있는가?
+    // 3. 학생1의 부모 요소를 검사함. 학생1의 부모유전자가 gender를 가지고 있는가?
+    // 4. 있으면 실행
+    // 학생1.toString();
+    // 학생1에 toString을 찾기위해서..
+    // 5. 또 없으면 또 그 부모의 유전자를 찾아감
+    // 부모의 부모 유전자에 있음
+
+
+    // prototype의 원리 : 왜 자식은 부모 유전자에 등록된 값을 사용가능한가
+    // prototype의 원리2 : toString, sort 등 자바스크립트 내장함수를 사용가능한 이유
+
+
+    var arr = [1, 2, 3]; //우리가 입력하는것
+    var arr = new Array(1, 2, 3); //실제 array가 만들어지는 방식
+    //arr는 부모가 가진것을 상속받음
+    //그래서 
+    // arr.sort(); //arr에 sort 이런거 부여한적 없음. 쓸 수 있는 이유는 arr의 부모유전자가 sort를 지니고 있기 때문
+    // arr.map();
+    // arr.push();
+    // 이런걸 쓸 수 있는 것.
+
+    Array.prototype;
+
+    // var arr = new Array(1,2,3); /모든 array 자료형은 Array 부모를 이용해 이렇게 만듦
+    // Array.prototype.sort()
+    // MDN 검색했을때 이렇게 나오는 이유
+    // 모든 array의 부모 유전자에 sort()함수가 있다.(모든 array의 부모들은 다 new Array이기에)
+
+
+    var obj = { name: 'kim' }; //입력하는 것
+    var obj = new Object(); //실제로 만들어지는것
+
+    //와...대박이구나 ㅠㅠㅠㅠㅠㅠ
+
+
+  </script>
+
+
+
+  <script>
+    //우리는 손쉽게 객체를 생산할 수 있지만, 객체의 메서드를 등록 할때마다 새로운 함수를 생성
+    this.sayYourName = function () {
+      console.log(`삐삐리뽀. 제 이름은 ${this.name}입니다. 주인님.`);
+    }
+    const robot = new Factory("핀")
+    const robot1 = new Factory("제이크")
+    /*
+    .
+    .
+    99개의 robot 인스턴스 생성
+    .
+    .
+    */
+    const robot100 = new Factory("100번째 로봇")
+    robot1.sayName === robot100.sayName // false
+
+    //바로 이 부분이 문제입니다. 우리는 100개의 객체를 생성할때마다 역시 100개의 함수를 새로 만들고 있는것 입니다. 이러한 자원의 낭비를 해결하기 위해 등장한 것이 바로 프로토타입
+    //프로토타입 : 모든 객체에서 해당 속성과 메서드를 사용할 수 있게 만들 수 있음
+
+    //Factory에 프로토타입으로 sayName이라는 메서드를 추가
+    function NewFactory2(name) {
+      this.name = name;
+    }
+
+    NewFactory2.prototype.sayYourName = function () {
+      console.log(`삐삐리뽀. 제 이름은 ${this.name}입니다. 주인님.`);
+    }
+    //sayYourName 메서드는 NewFactory2 생성자 함수로 생성된 모든 객체에서 공유하여 사용할 수 있도록 프로토타입 객체에 추가
+    
+    const robot2 = new NewFactory2("핀")
+    const robot3 = new NewFactory2("제이크")
+    /*
+    .
+    .
+    99개의 robot 인스턴스 생성
+    .
+    .
+    */
+    robot2 === robot3 //false
+    const robot101 = new NewFactory2("101번째 로봇") //false
+    robot1.sayYourName === robot101.sayYourName // true
+    // 서로 같은 메모리 공간을 가르키고 있음
+
+    //이렇듯 프로토타입은 모든 인스턴스가 하나의 메서드를 공유하도록 만들어 자원을 더 효율적으로 사용하도록 도와줍니다. 생성된 객체끼리 메서드를 비교하여 같은 곳을 참조하는지 살펴보는것도 이해하는데 도움이 됩니다.
+  </script>
+</body>
+
+</html>
