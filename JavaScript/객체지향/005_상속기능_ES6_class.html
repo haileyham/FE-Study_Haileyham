@@ -1,34 +1,44 @@
 <!DOCTYPE html>
 <html lang="ko-KR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>5_class</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5_class</title>
 </head>
+
 <body>
-  
+
   <script>
     //상속기능을 구현하는 ES6 방법 : class
     //class
     //constructor 만드는 신문법
 
-    class 부모{
-      constructor(aaa){ //constructor 메서드는 객체를 생성할 때 초기화를 담당
+    class 부모 {
+      constructor(aaa) { //constructor 메서드는 객체를 생성할 때 초기화를 담당
         this.name = aaa;
-        this.sayHi = function(){ //(함수추가1) constructor에 추가(자식이 직접 함수를 가짐)
+        this.sayHi = function () { //(함수추가1) constructor에 추가(자식이 직접 함수를 가짐)
           console.log('hello')
         }
       }
-      sayHi(){ //(함수추가2)부모 안에 바로 추가(여기에 쓰면 자식 오브젝트에 추가 안됨)
-          console.log('hello')
-        }
+      sayHi() { //(함수추가2)부모 안에 바로 추가(여기에 쓰면 자식 오브젝트에 추가 안됨)
+        console.log('hello')
+      }
     }
     //함수를 추가하고 싶으면
     // 1. constructor에 추가(자식이 직접 함수를 가짐) 
     // 2. 부모 안에 바로 추가(여기에 쓰면 자식 오브젝트에 추가 안됨) / (부모.prototype에 추가됨) / 부모 유전자에 만들어두면 모든 자식들이 공통적으로 쓸 수 있는 내장함수를 만들 수 있고, 관리도 편리
 
-    부모.prototype.sayHello = function(){} //직접 수정할때 이렇게
+    //constructor는 객체가 생성될 때 호출되는 특수한 메소드입니다. 이 메소드는 객체의 초기화를 위해 사용됩니다. constructor 메소드는 인스턴스의 프로퍼티를 초기화하거나 다른 초기화 코드를 실행하는 등의 작업을 수행할 수 있습니다.
+    // sayHi 메소드는 객체의 기능을 나타내는 일반적인 메소드입니다. sayHi 메소드는 부모 클래스의 인스턴스에서 호출될 수 있으며, "hello" 문자열을 로그에 출력합니다.
+    // 차이점은 다음과 같습니다.
+    
+    // constructor는 객체를 초기화하는 데 사용되는 특수한 메소드입니다.
+    // sayHi는 객체의 메소드이며, 객체의 기능을 나타내는 코드를 포함합니다.
+    // constructor는 인스턴스를 만들 때 한 번만 호출되고, sayHi는 인스턴스에서 여러 번 호출될 수 있습니다. constructor에서 인스턴스의 프로퍼티를 설정하거나 다른 초기화 코드를 실행할 수 있습니다. sayHi는 인스턴스의 기능을 나타내는 메소드이므로, 객체의 상태를 변경하거나 다른 메소드를 호출하는 등의 작업을 수행할 수 있습니다.
+
+    부모.prototype.sayHi = function () { } //직접 수정할때 이렇게
 
 
     var 자식 = new 부모('helloooo'); //constructor aaa파라미터타고 적용
@@ -43,8 +53,9 @@
     //객체지향 문법을 쓰는 이유?
     //(이유1) object 여러개 만들어 쓰려고 하는 것
 
-  
+
 
   </script>
 </body>
+
 </html>
