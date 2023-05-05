@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  background: rgb(253, 240, 240);
+}
+
+
+
+button {
+  padding: 8px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  color: rgb(255, 255, 255);
+  background: rgb(252, 179, 179);
+  padding: 8px 15px;
+}
+
+button:hover {
+  background-color: rgba(255, 79, 79, 0.644);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 70px;
+  padding: 30px 40px;
+  background: #fff;
+  border-radius: 5px;
+}
+
+
+
+.badge{
+  text-align: center;
+  border-radius: 5px;
+  color:rgb(184, 161, 161);
+  padding: 5px;
+  font-size:12px;
+  display: block;
+  cursor: pointer;
+  width:100px;
+  margin-left: auto;
+}
+
+.badge:hover{
+  background-color: hsl(0, 19%, 73%);
+  color:#fff;
+}
+
+
+h1{
+  color:#faa1a1;
+}
+
+.header button {
+  font-family: inherit;
+}
+
+main {
+  display: flex;
+  gap:30px;
+}
+
+.mainMemo{
+  flex-basis: 30%;
+}
+
+.contentMemo{
+  flex-basis: 70%;
+  display:flex;
+}
+
+.displays{
+  background: #ffe6e6a1;
+  width:100%;
+  border-radius: 10px;
+}
+
+#display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content:center;
+  padding:10px;
+  margin-top:20px;
+}
+
+.card {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 10px;
+  width:45%;
+  position: relative;
+  transition: all 0.5s;
+}
+
+.card:hover{
+  transform: scale(1.05);
+  z-index: 3;
+}
+
+
+.card h2,
+.card p{
+  margin-bottom:20px;
+  text-align: center;
+  margin-top:5px;
+}
+
+.card h2{
+  color:#faa1a1
+}
+.cardP{
+  color:#615656
+}
+
+.card button{
+  position: absolute;
+  right:7px;
+  top:7px;
+  padding:3px 8px;
+  background-color: #fddfdf00;
+  color:rgb(255, 214, 214);
+  font-size:20px;
+}
+
+.card button:hover{
+  background-color: #fddada;
+  color:white;
+}
+
+
+
+.container {
+  max-width: 1080px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  height: 30px;
+  margin-bottom: 10px;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #ffc6c6ef;
+}
+
+#date{
+  width:100%;
+  height:40px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background: #ffa5a5;
+  text-align: center;
+  line-height: 40px;
+  color:white;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  height: 300px;
+  margin-bottom: 10px;
+  resize: none;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid #ffc6c6ef;
+  font-family:inherit;
+}
+
+input:focus,
+textarea:focus{
+  outline: 2px solid rgb(252, 138, 110);
+}
+
+input::placeholder,
+textarea::placeholder{
+  color:#faa1a1;
+  font-family:inherit;
+}
+
+.memoBtn{
+  width:100%;
+  padding:10px;
+}
+
+
+
+.dark{
+  background-color: #615656;
+}
+
+.darkHeader{
+  background-color: #383232;
+}
+
+.darkBtn{
+  background-color: #684d4d;
+  color:#e29a9a
+}
+/* 
+.cardDark{
+  background: #5e5555;
+}
+
+.dateDark{
+  background: #3d3838;
+}
+
+.titleDark,
+.contentDark{
+  background: #5e5555;
+  color:white;
+}
+
+.memoBtnDark{
+  background: #3d3838;
+}
+
+.cardPDark{
+  color:rgb(80, 80, 34);
+}
+
+.displaysDark{
+  background-color: #3d3838;
+} */
+
+@media(max-width:768px){
+  main{
+    flex-direction: column;
+  }
+
+
+  .card{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media(max-width:480px){
+  .header{
+    display:flex;
+    flex-direction: column;
+  }
+}

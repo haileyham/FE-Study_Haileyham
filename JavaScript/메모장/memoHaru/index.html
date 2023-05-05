@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="memoHaru.css">
+  <title>memo haru</title>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <span class="badge bg-dark" id="badge">Dark Mode ⇔</span>
+      <div class="header">
+        <h1>Memo</h1>
+        <div>
+          <!-- <button id="">Add Memo</button> -->
+          <button id="delAll">Delete All</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="container">
+    <main>
+      <section class="mainMemo">
+        <div id="date"></div>
+        <input type="text" name="" id="title" placeholder="오늘의 제목" />
+        <textarea name="" id="content" cols="30" rows="10" placeholder="당신의 하루는 어땠나요?"></textarea>
+        <button class="memoBtn" onclick="saveNote()">기록하기</button>
+      </section>
+
+      <section class="contentMemo">
+        <div class="displays">
+          <div id="display"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+
+  <script src="memoHaru.js">
+  </script>
+</body>
+
+</html>
