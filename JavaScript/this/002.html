@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this2</title>
+  </head>
+  <body>
+    <div></div>
+
+    <script>
+      console.log(this);
+
+      // this(2)
+      // 오브젝트(객체) 내 함수안에서 쓰면 (=메소드)
+      // 그 함수를 가지고 있는 오브젝트(객체)를 뜻함
+      var 오브젝트 = {
+        data: "Kim",
+        함수: function () {
+          console.log(this); //나를 포함하고 있는 오브젝트(객체)
+        },
+      };
+
+      오브젝트.함수(); //{data: 'Kim', 함수: ƒ}
+
+      //----------------------------------------------------------
+      //object 안에 object 안에 function 안의 this
+      var 오브젝트2 = {
+        data: {
+          함수2: function () {
+            console.log(this); //오브젝트2.data
+          },
+        },
+      };
+
+      오브젝트2.data.함수2(); //{함수2: ƒ}
+
+      //----------------------------------------------------------
+      //object 안에 object 안에 arrow function 안의 this
+      //신문법 Arrow Function 특징 : this 값을 함수밖에 있던거 그대로 씀
+      var 오브젝트3 = {
+        data: {
+          함수3: () => {
+            console.log(this); //오브젝트3.data
+          },
+        },
+      };
+
+      오브젝트3.data.함수3(); //window
+
+      //----------------------------------------------------------
+      //오브젝트 안에 함수 넣을 때 신문법
+      var 오브젝트4 = {
+        data: {
+          함수4() {
+            console.log(this);
+          },
+        },
+      };
+
+      오브젝트4.data.함수4(); //window
+
+
+
+
+
+      /*
+      (1) this : {window}찍는 this 
+        1) 그냥 쓰기
+        2) 일반 함수 안에서 쓰기
+
+      (2) this : object 안의 this → 그 함수를 가지고 있는 객체를 뜻함
+        1) 객체 내 함수안에서 쓰기(메소드)
+        2) 객체 안의 객체안의 함수
+
+
+      (1) 결과가 나오는 이유는 자바스크립트 쓸 때 사실은 보이지 않는 {} 객체 하나 있음. 함수나 변수를 전역공간에서 만들면 {window}라는 보관소에 보관을 함. 그렇기 때문에 (1)번의 결과가 window를 출력하는 것임.
+
+    
+
+      --------------------------------
+
+      {window} : global object : 전역변수 보관소
+
+      --------------------------------
+      function 함수(){
+        console.log(this)
+      }
+
+      함수();
+      window.함수()
+      → 둘 다 똑같음
+
+
+      이유는 사실 
+      --------------------------------
+      window:{
+        함수(){
+          console.log()
+        }
+      }
+      라고 보면 됨. 그냥 함수를 위에서 만든 것도 결국 window 객체 안에서 담고 있는 것이기 때문에 (2)번처럼 담고 있는 객체를 뜻하는 것임.
+      
+
+      ★ 결론 : this의 역할은 - 나를 담고 있는 object 객체를 나타낸다.
+      */
+
+      //----------------------------------------------------------
+
+      ["킹", "받", "네"].forEach((a) => {
+        console.log(a);
+      });
+
+      const meTo = ["킹", "받", "네"];
+      meTo.unshift("제", "가", "더");
+      meTo.push("yo");
+      meTo.forEach((a) => {
+        console.log(a);
+      });
+    </script>
+  </body>
+</html>

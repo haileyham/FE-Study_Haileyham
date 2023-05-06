@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this1</title>
+</head>
+<body>
+  
+  <div></div>
+
+  <script>
+    'use strict';//자바스크립트 엄격하게 실행
+
+
+    // this(1)
+    // 그냥 쓰거나 일반함수 안에서 쓰면 {window}
+    console.log(this); //window
+
+    function 함수(){
+      console.log(this); //window /strict mode에서는 undefined
+    }
+    함수();
+
+
+    // this(1-2)
+    // 최상단 strict mode + 일반함수 내에서 쓰면 undefined
+
+
+
+
+
+  </script>
+</body>
+</html>

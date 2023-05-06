@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>this4</title>
+  </head>
+  <body>
+    <button id="box">button</button>
+
+    <script>
+      // (4) this : 이벤트리스너
+      document.querySelector("#box").addEventListener("click", function (e) {
+        console.log(this); //e.currentTarget;
+        console.log(e.currentTarget); //지금 이벤트 동작하는 곳
+      });
+
+
+
+      // Case Study 1.
+      document.querySelector("#box").addEventListener("click", 
+      function (e){
+        var 어레이 = [1,2,3];
+        어레이.forEach(function(a){ //콜백함수 : 함수 안에 들어가는 함수
+          console.log(a);
+          console.log(this);
+        })
+      });
+    </script>
+  </body>
+</html>

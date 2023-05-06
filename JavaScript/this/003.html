@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>this3</title>
+</head>
+<body>
+  
+  <div></div>
+
+  <script>
+    // (3) this  : 기계(=오브젝트 생성기계 constructor) 안에서 쓰면 새로 생성되는 오브젝트를 뜻함
+    var 어쩌구 = {}
+
+    function 기계(){
+      this.이름 = 'Kim' //여기서 this는 새로 생성되는 오브젝트(instance)
+    }
+
+    var 오브젝트 = new 기계();
+    console.log(오브젝트); //기계 {이름: 'Kim'}
+  </script>
+</body>
+</html>
