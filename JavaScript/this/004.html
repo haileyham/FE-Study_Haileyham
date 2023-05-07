@@ -8,6 +8,8 @@
   </head>
   <body>
     <button id="box">button</button>
+    <button id="box2">button2</button>
+    <button id="box3">button3</button>
 
     <script>
       // (4) this : 이벤트리스너
@@ -19,14 +21,47 @@
 
 
       // Case Study 1.
-      document.querySelector("#box").addEventListener("click", 
-      function (e){
-        var 어레이 = [1,2,3];
-        어레이.forEach(function(a){ //콜백함수 : 함수 안에 들어가는 함수
+      // event listener 내에서 콜백함수를 쓰면 this는?
+      document.querySelector("#box2").addEventListener("click", function (e) {
+        var 어레이 = [1, 2, 3];
+        어레이.forEach(function (a) {
+          //콜백함수 : 함수 안에 들어가는 함수
           console.log(a);
-          console.log(this);
-        })
+          console.log(this); //★ 함수가 쓰인 위치에 따라 this값이 변함 / window출력 / (1)번 뜻 //이 함수는 콜백함수로 쓰였음. 일반함수처럼 (1) 생각. 어디에 달라붙어있는 것이 아님. 전역함수라 생각하면 됨
+        });
       });
+
+
+
+      // Case Study 2.
+      // 오브잭트 내에서 콜백함수를 쓴다면 this는?
+      var 오브젝트 = {
+        이름들 : ['김','이','박'],
+        함수 : function(){
+          console.log(this); //{이름들: Array(3), 함수: ƒ} / 위 함수를 소유한 오브젝트
+          오브젝트.이름들.forEach(function(){
+            console.log(this); //window / function 그냥 근본없는 일반함수임. 그래서 this값이 window됨 / this의 function 위치를 잘 보면 됨.
+          })
+        }
+      }
+
+      오브젝트.함수();
+
+
+      // Case Study 3.
+      // arrow function 안에서의 this?
+      var 오브젝트2 = {
+        이름들 : ['김','이','박'],
+        함수 : function(){
+          console.log(this); 
+          오브젝트2.이름들.forEach(()=>{ //arrow function 특징 : 내부의 this 값을 변화시키지 않음(외부 this값 그대로 재사용 가능)
+            console.log(this); //그래서 상위 this값을 그대로 물려받아서 사용 / {이름들: Array(3), 함수: ƒ}
+          })
+        }
+      }
+
+      오브젝트2.함수();
+
     </script>
   </body>
 </html>
