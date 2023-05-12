@@ -64,8 +64,8 @@ fetch("url")
   .then((결과) => {
     console.log(결과);
   })
-  .catch(() => {
-    console.log("에러남");
+  .catch((error) => {
+    console.log(error);
   });
 
 

@@ -22,7 +22,7 @@ function App() {
       </div>
 
       <button
-        onClick={() => {
+        onClick={() => { 
           let copy = [...글제목];
           글제목변경(copy);
         }}
