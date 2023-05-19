@@ -58,7 +58,7 @@ ajax.send();
 
 //요즘 방식
 fetch("url")
-  .then((response) => {
+  .then((response) => { //fullfiled된 데이터 response들어감(resolve함수실행되면 가능)
     return response.json();
   })
   .then((결과) => {
@@ -97,6 +97,25 @@ async function 데이터가져오는함수() {
 데이터가져오는함수().catch(() => {
   console.log("에러남");
 })
+//catch 편안하게 쓰려면 try catch쓰기
+
+
+
+//try catch
+async function fetchData() {
+  try {
+    const response = await fetch("url");
+    if (!response.ok) {
+      throw new Error("400 아니면 500 에러남");
+    }
+    const result = await response.json();
+    console.log(result);
+  } catch (error) {
+    console.log("에러남:", error);
+  }
+}
+
+fetchData();
 
 //외부 라이브러리 방식 
 // jQuery $.ajax()
