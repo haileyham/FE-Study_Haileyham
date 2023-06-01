@@ -1,3 +1,12 @@
+.main-bg{
+  height:300px;
+  background-image: url('./img/bg.png');
+  background-size:cover;
+  /* 너무클때 맞추기 */
+  background-position: center; 
+  /* 기준점 / 가운데 정렬 */
+}
+
 .App {
   text-align: center;
 }
