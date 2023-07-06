@@ -5,6 +5,7 @@ import { addCount5, subCount5 } from "./store/user5Slice";
 function App() {
 
   let a = useSelector((state) => { return state })//configureStore에 등록되어있는 state들 가져옴
+  //useSelector에 따라서 state 변경될때마다 재렌더링 여부, 성능개선 가능
   let b = useSelector((state) => { return state.userStore5 })
   console.log(a); //{userCon: 'hailey'}
   console.log(a.userStore); //hailey
