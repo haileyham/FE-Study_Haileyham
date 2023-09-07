@@ -2,7 +2,7 @@ import React from 'react'
 import '../../styles/main.scss';
 import { useNavigate } from 'react-router-dom';
 
-export default function Main() {
+export default function Main()  : JSX.Element{
     const navigate = useNavigate();
 
   return (
