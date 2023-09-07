@@ -1,0 +1,25 @@
+$mainColor : #ffeeee;
+$linkColor : #ffc5c5;
+$navSize : 1rem;
+
+.navbar{
+    background-color: $mainColor ;
+    max-width:1200px;
+    height:10rem;
+    margin:auto;
+    display:flex;
+    gap:4rem;
+    justify-content: center;
+    align-items: center;
+    div{
+        background-color: $linkColor;
+        padding:2rem;
+        border-radius: 30px;
+        width:12rem;
+        text-align: center;
+        color:#fff;
+        font-size: $navSize;
+        cursor: pointer;
+    }
+}
+
