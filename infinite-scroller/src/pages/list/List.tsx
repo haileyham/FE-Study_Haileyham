@@ -4,7 +4,7 @@ import '../../styles/main.scss';
 
 export default function List(): JSX.Element {
     const [ref, inView] = useInView();
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(10);
     const [products, setProducts] = useState<string[]>([]);
     const [item, setItem] = useState<ASorN[]>([]); // 초기값을 null로 설정하고 객체 또는 null을 허용
 
@@ -20,7 +20,7 @@ export default function List(): JSX.Element {
     const apiget = async (): Promise<void> => {
         try {
             const response = await fetch(
-                'https://jsonplaceholder.typicode.com/posts?_start=0&_limit=10',
+                `https://jsonplaceholder.typicode.com/posts?_start=0&_limit=${page}`,
             );
             if (!response.ok) {
                 throw new Error('네트워크 오류'); // 오류 처리 예제
@@ -28,6 +28,7 @@ export default function List(): JSX.Element {
             const data: ASorN[] = await response.json();
             console.log(data);
             setItem(data);
+            setPage((page) => page + 10);
         } catch (error) {
             console.error('에러 발생:', error);
         }
