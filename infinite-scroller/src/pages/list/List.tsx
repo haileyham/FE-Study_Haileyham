@@ -26,7 +26,7 @@ export default function List(): JSX.Element {
             }
 
             const response = await fetch(
-                `https://jsonplaceholder.typicode.com/posts?_start=${page}&_limit=50`,
+                `https://jsonplaceholder.typicode.com/posts?_start=${page}&_limit=20`,
             );
             if (!response.ok) {
                 throw new Error('네트워크 오류'); // 오류 처리 예제
@@ -43,7 +43,7 @@ export default function List(): JSX.Element {
             // const combinedData = [...item, ...data];
             const combinedData = item.concat(data);
             setItem(combinedData);
-            setPage((page) => page + 50);
+            setPage((page) => page + 20);
         } catch (error) {
             console.error('에러 발생:', error);
         }
@@ -69,7 +69,11 @@ export default function List(): JSX.Element {
                     </div>
                 ))}
                 <div ref={ref} style={{ visibility: 'hidden' }}></div>
-                {!hasMoreData ? <p>끝! 더 이상 불러올 데이터가 없옹~</p> : 0}
+                {!hasMoreData ? (
+                    <p>끝! 더 이상 불러올 데이터가 없옹~</p>
+                ) : (
+                    <p aria-busy="true">데이터 로딩중</p>
+                )}
             </div>
         </>
     );
