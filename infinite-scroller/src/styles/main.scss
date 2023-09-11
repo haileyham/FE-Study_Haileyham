@@ -1,25 +1,49 @@
-$mainColor : #ffeeee;
-$linkColor : #ffc5c5;
-$navSize : 1rem;
+$mainColor: #ffeeee;
+$linkColor: #ffc5c5;
+$navSize: 1rem;
 
-.navbar{
-    background-color: $mainColor ;
-    max-width:1200px;
-    height:10rem;
-    margin:auto;
-    display:flex;
-    gap:4rem;
+.navbar {
+    background-color: $mainColor;
+    max-width: 1200px;
+    height: 10rem;
+    margin: auto;
+    display: flex;
+    gap: 4rem;
     justify-content: center;
     align-items: center;
-    div{
+    div {
         background-color: $linkColor;
-        padding:2rem;
+        padding: 2rem;
         border-radius: 30px;
-        width:12rem;
+        width: 12rem;
         text-align: center;
-        color:#fff;
+        color: #fff;
         font-size: $navSize;
         cursor: pointer;
     }
 }
 
+.CardBox {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    div {
+        border: 1px solid $linkColor;
+        border-radius: 10px;
+        width: 30rem;
+
+        // padding: 1rem;
+    }
+    h2 {
+        background-color: #ffeeee;
+        padding: 1rem;
+        margin-top: 0px;
+        border-radius: 10px;
+        color: $linkColor;
+    }
+    p {
+        padding: 1rem;
+    }
+}
