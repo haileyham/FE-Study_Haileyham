@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../../styles/main.scss';
+import { useQuery } from 'react-query'; // react-query에서 필요한 훅을 가져오기
 
 export default function Photo() {
     const [photo, setPhoto] = useState<ASorN[]>([]);
