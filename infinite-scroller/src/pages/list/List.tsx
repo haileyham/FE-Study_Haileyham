@@ -53,7 +53,7 @@ export default function List(): JSX.Element {
                         <p>{post.body}</p>
                     </div>
                 ))}
-                <div ref={ref}>ref다 이거보이묜 hello출력!</div>
+                <div ref={ref}></div>
             </div>
         </>
     );
