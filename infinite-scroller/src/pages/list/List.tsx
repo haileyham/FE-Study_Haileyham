@@ -7,6 +7,7 @@ export default function List(): JSX.Element {
     const [page, setPage] = useState(0);
     // const [products, setProducts] = useState<string[]>([]);
     const [item, setItem] = useState<ASorN[]>([]); // 초기값을 null로 설정하고 객체 또는 null을 허용
+    const [hasMoreData, setHasMoreData] = useState(true);
 
     interface ASorN {
         [key: string]: string | number;
@@ -19,6 +20,11 @@ export default function List(): JSX.Element {
 
     const apiget = async (): Promise<void> => {
         try {
+            if (!hasMoreData) {
+                // 더 이상 데이터를 불러올 수 없으면 함수 종료
+                return;
+            }
+
             const response = await fetch(
                 `https://jsonplaceholder.typicode.com/posts?_start=${page}&_limit=50`,
             );
@@ -27,6 +33,13 @@ export default function List(): JSX.Element {
             }
             const data: ASorN[] = await response.json();
             console.log(data);
+
+            if (data.length === 0) {
+                // 더 이상 데이터가 없으면 hasMoreData를 false로 설정하여 무한 스크롤을 중지
+                setHasMoreData(false);
+                return;
+            }
+
             // const combinedData = [...item, ...data];
             const combinedData = item.concat(data);
             setItem(combinedData);
@@ -56,6 +69,7 @@ export default function List(): JSX.Element {
                     </div>
                 ))}
                 <div ref={ref} style={{ visibility: 'hidden' }}></div>
+                {!hasMoreData ? <p>끝! 더 이상 불러올 데이터가 없옹~</p> : 0}
             </div>
         </>
     );
