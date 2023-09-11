@@ -2,6 +2,14 @@ $mainColor: #ffeeee;
 $linkColor: #ffc5c5;
 $navSize: 1rem;
 
+@mixin flex_style {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
 .navbar {
     background-color: $mainColor;
     max-width: 1200px;
@@ -24,11 +32,13 @@ $navSize: 1rem;
 }
 
 .CardBox {
-    margin: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    // margin: 5px;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // gap: 1rem;
+    // 밑에 photoBox에서도 쓰기 때문에 mixin으로 빼고 include해서 사용
+    @include flex_style;
     div {
         border: 1px solid $linkColor;
         border-radius: 10px;
@@ -45,5 +55,15 @@ $navSize: 1rem;
     }
     p {
         padding: 1rem;
+    }
+}
+
+.PhotoBox {
+    @include flex_style;
+    div {
+        width: 30rem;
+    }
+    img {
+        width: 100%;
     }
 }
