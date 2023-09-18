@@ -37,6 +37,11 @@ export default function Search(): JSX.Element {
             <input type="text" />
             <button>검색</button>
             {info && <p>{info.querySelector('TITLE').textContent}</p>}
+            {info &&
+                Array.from(info.querySelectorAll('TITLE')).map((a: any, i) => (
+                    // <div>hello</div>
+                    <div>{a.textContent}</div>
+                ))}
         </>
     );
 }
