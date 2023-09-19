@@ -1,4 +1,13 @@
-div{
-    width:500px;
-    background: red;
+div {
+    width: 500px;
+    // background: red;
+}
+
+.searchBox {
+    padding: 3rem;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 10rem;
+    cursor: pointer;
+    background: pink;
 }
