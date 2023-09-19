@@ -4,7 +4,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 // XML 파싱한 것 json으로 변환해서 사용하기
 export default function Searching() {
-    const [eventData, setEventData] = useState<any>();
+    const [eventData, setEventData] = useState<CulturalEvent[]>([]);
+    interface CulturalEvent {
+        [key: string]: string | null | undefined;
+    }
+
     const get = async (): Promise<void> => {
         try {
             // const apiKey = process.env.REACT_APP_API_KEY;
@@ -28,7 +32,7 @@ export default function Searching() {
 
             const rowElements = xmlDoc.querySelectorAll('row');
             // console.log(rowElements);
-            rowElements.forEach((rowElement, index) => {
+            rowElements.forEach((rowElement) => {
                 const culturalEvent = {
                     //key값 주기위해서 id부여
                     id: uuidv4(), // UUID를 사용한 고유한 식별자
@@ -77,8 +81,15 @@ export default function Searching() {
             <h1>찾아보자!</h1>
             <input type="text" />
             <button>검색</button>
-            {eventData && <p>{eventData[0].TITLE}</p>}
-            {/* {eventData.map((a) => {})} */}
+            {/* {eventData && <p>{eventData[0].TITLE}</p>} */}
+            {eventData &&
+                eventData.map((data) => {
+                    return (
+                        <div key={data.id}>
+                            <h2>{data.TITLE}</h2>
+                        </div>
+                    );
+                })}
         </>
     );
 }
