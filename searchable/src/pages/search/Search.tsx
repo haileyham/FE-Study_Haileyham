@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import config from '../../api/config.json';
+import { v4 as uuidv4 } from 'uuid';
 
 // XML 파싱한 것 json으로 변환해서 사용하기
 export default function Searching() {
@@ -30,7 +31,7 @@ export default function Searching() {
             rowElements.forEach((rowElement, index) => {
                 const culturalEvent = {
                     //key값 주기위해서 id부여
-                    id: index.toString(),
+                    id: uuidv4(), // UUID를 사용한 고유한 식별자
                     CODENAME: rowElement.querySelector('CODENAME')?.textContent,
                     GUNAME: rowElement.querySelector('GUNAME')?.textContent,
                     TITLE: rowElement.querySelector('TITLE')?.textContent,
