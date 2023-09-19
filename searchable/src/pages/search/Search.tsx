@@ -81,12 +81,16 @@ export default function Searching() {
             <h1>찾아보자!</h1>
             <input type="text" />
             <button>검색</button>
-            {/* {eventData && <p>{eventData[0].TITLE}</p>} */}
             {eventData &&
                 eventData.map((data) => {
                     return (
                         <div key={data.id}>
                             <h2>{data.TITLE}</h2>
+                            <p>{data.DATE}</p>
+                            <p>{data.GUNAME}</p>
+                            <p>{data.IS_FREE}</p>
+                            <p>{data.PLACE}</p>
+                            <p>{data.CODENAME}</p>
                         </div>
                     );
                 })}
