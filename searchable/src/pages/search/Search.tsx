@@ -3,7 +3,7 @@ import config from '../../api/config.json';
 
 // XML 파싱한 것 json으로 변환해서 사용하기
 export default function Searching() {
-    const [eventData, setEventData] = useState<any>(null);
+    const [eventData, setEventData] = useState<any>();
     const get = async (): Promise<void> => {
         try {
             // const apiKey = process.env.REACT_APP_API_KEY;
@@ -58,11 +58,17 @@ export default function Searching() {
                 culturalEvents.push(culturalEvent);
             });
 
-            const jsonData = JSON.stringify(culturalEvents, null, 2);
-            console.log(jsonData);
+            // console.log(culturalEvents);
+            // setEventData(culturalEvents);
+            // console.log(eventData);
 
-            setEventData(jsonData);
-            // console.log(eventData[0]);
+            const jsonData = JSON.stringify(culturalEvents, null, 2);
+            // console.log(jsonData);
+            const data = await JSON.parse(jsonData);
+            console.log(data);
+
+            setEventData(data);
+            console.log(eventData);
         } catch (error) {
             console.log('에러발생:', error);
         }
@@ -77,7 +83,7 @@ export default function Searching() {
             <h1>찾아보자!</h1>
             <input type="text" />
             <button>검색</button>
-            {eventData && <p>{eventData[0].TITLE}</p>}
+            {eventData && <p>{eventData[0].DATE}</p>}
         </>
     );
 }
