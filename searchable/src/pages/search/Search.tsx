@@ -58,17 +58,20 @@ export default function Searching() {
                 culturalEvents.push(culturalEvent);
             });
 
-            // console.log(culturalEvents);
-            // setEventData(culturalEvents);
-            // console.log(eventData);
-
-            const jsonData = JSON.stringify(culturalEvents, null, 2);
-            // console.log(jsonData);
-            const data = await JSON.parse(jsonData);
-            console.log(data);
-
-            setEventData(data);
+            console.log(culturalEvents);
+            setEventData(culturalEvents);
             console.log(eventData);
+
+            // xml파싱 > forEach 자스객체화 > JSON > JSON 파싱
+            // 중복되서 하는 것을 발견
+            // 그냥 바로 setEventData(culturalEvents);해주기
+            // const jsonData = JSON.stringify(culturalEvents, null, 2);
+            // // console.log(jsonData);
+            // const data = await JSON.parse(jsonData);
+            // console.log(data);
+
+            // setEventData(data);
+            // console.log(eventData);
         } catch (error) {
             console.log('에러발생:', error);
         }
