@@ -27,8 +27,10 @@ export default function Searching() {
 
             const rowElements = xmlDoc.querySelectorAll('row');
             // console.log(rowElements);
-            rowElements.forEach((rowElement) => {
+            rowElements.forEach((rowElement, index) => {
                 const culturalEvent = {
+                    //key값 주기위해서 id부여
+                    id: index.toString(),
                     CODENAME: rowElement.querySelector('CODENAME')?.textContent,
                     GUNAME: rowElement.querySelector('GUNAME')?.textContent,
                     TITLE: rowElement.querySelector('TITLE')?.textContent,
@@ -57,7 +59,7 @@ export default function Searching() {
 
                 culturalEvents.push(culturalEvent);
             });
-            // console.log(culturalEvents);
+            console.log(culturalEvents);
             setEventData(culturalEvents);
             // console.log(eventData);
         } catch (error) {
@@ -74,7 +76,8 @@ export default function Searching() {
             <h1>찾아보자!</h1>
             <input type="text" />
             <button>검색</button>
-            {eventData && <p>{eventData[0].DATE}</p>}
+            {eventData && <p>{eventData[0].TITLE}</p>}
+            {/* {eventData.map((a) => {})} */}
         </>
     );
 }
