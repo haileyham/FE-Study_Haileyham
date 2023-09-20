@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import config from '../../api/config.json';
 import { v4 as uuidv4 } from 'uuid';
 import '../../styles/main.scss';
+import useDebounce from '../../hooks/useDebounce';
 
 // XML 파싱한 것 json으로 변환해서 사용하기
 export default function Searching(): JSX.Element {
@@ -12,13 +13,15 @@ export default function Searching(): JSX.Element {
 
     const [title, setTitle] = useState<string>('');
 
+    const debounced = useDebounce(title, 700);
+
     const get = async (): Promise<void> => {
         try {
             // const apiKey = process.env.REACT_APP_API_KEY;
             // console.log(apiKey);
             const apiKey2 = config.api_key;
             const response = await fetch(
-                `http://openapi.seoul.go.kr:8088/${apiKey2}/xml/culturalEventInfo/1/1000/ /${title}`, // 띄어쓰기 해야 TITLE 검색 가능 / 옵션1(분류) / 옵션2(공연/행사명) / 옵션3(날짜/시간 YYYY-MM-DD)
+                `http://openapi.seoul.go.kr:8088/${apiKey2}/xml/culturalEventInfo/1/1000/ /${debounced}`, // 띄어쓰기 해야 TITLE 검색 가능 / 옵션1(분류) / 옵션2(공연/행사명) / 옵션3(날짜/시간 YYYY-MM-DD)
                 //한번에 최대 1000개까지 호출가능(총데이터수 약3600개)
                 //옛날것도 가져오는 것 같군 / 추후 시간 조정해야겠다
             );
@@ -79,7 +82,7 @@ export default function Searching(): JSX.Element {
 
     useEffect(() => {
         get();
-    }, [title]);
+    }, [debounced]);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement>,
