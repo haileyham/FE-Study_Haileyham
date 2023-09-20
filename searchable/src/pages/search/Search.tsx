@@ -79,7 +79,7 @@ export default function Searching(): JSX.Element {
 
     useEffect(() => {
         get();
-    }, []);
+    }, [title]);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement>,
