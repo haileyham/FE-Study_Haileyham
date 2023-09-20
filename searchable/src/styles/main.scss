@@ -1,13 +1,64 @@
-div {
-    width: 500px;
-    // background: red;
-}
+$mainColor: rgb(184, 218, 255);
 
+//main페이지
 .searchBox {
-    padding: 3rem;
+    padding: 2rem;
     border-radius: 20px;
     text-align: center;
-    font-size: 10rem;
+    font-size: 2rem;
     cursor: pointer;
     background: pink;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+//searching페이지
+.searchContainer {
+    padding: 30px;
+    text-align: center;
+    margin: auto;
+    max-width: 1080px;
+}
+
+.searchHeader {
+    background-color: $mainColor;
+    padding: 3rem;
+    input,
+    button {
+        padding: 1rem;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        outline: none;
+    }
+    button {
+        background: rgb(123, 187, 255);
+        margin-left: 1rem;
+        color: white;
+    }
+    input:focus {
+        outline: 0.3rem solid rgb(123, 187, 255);
+    }
+}
+
+.cultureContainer {
+    background-color: $mainColor;
+    display: flex;
+    gap: 20px;
+    width: 1080px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .cultureBox {
+        background-color: rgb(237, 237, 248);
+        width: calc(30% - 20px); /* 너비를 조절하고 간격을 뺀 크기로 설정 */
+        padding: 10px;
+        border-radius: 10px;
+        margin-left: 17px;
+        img {
+            width: 90%;
+            height: 20rem;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    }
 }

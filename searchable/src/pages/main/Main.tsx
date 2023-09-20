@@ -11,12 +11,19 @@ export default function Main() {
             <div
                 className="searchBox"
                 onClick={() => {
+                    navigate('/list');
+                }}
+            >
+                list
+            </div>
+            <div
+                className="searchBox"
+                onClick={() => {
                     navigate('/search');
                 }}
             >
                 search
             </div>
-            ;
         </>
     );
 }
