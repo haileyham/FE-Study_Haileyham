@@ -11,4 +11,10 @@ export function getSessionData<T>(key: string): T | null {
     return null;
 }
 
+export function clearSessionData(key: string) {
+    sessionStorage.removeItem(key);
+}
+
 setSessionData('key', 'hello');
+clearSessionData('key');
+clearSessionData('쀼');
