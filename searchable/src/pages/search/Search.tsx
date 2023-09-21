@@ -100,9 +100,7 @@ export default function Searching(): JSX.Element {
         }
     };
 
-    useEffect(() => {
-        get();
-    }, [debounced]);
+    // useEffect(() => {}, []);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -116,7 +114,7 @@ export default function Searching(): JSX.Element {
                 <header className="searchHeader">
                     <h1>찾아보자!</h1>
                     <input onChange={handleInputChange} type="text" />
-                    <button>검색</button>
+                    <button onClick={get}>검색</button>
                     <p>{title}</p>
                 </header>
                 <main className="cultureContainer">
