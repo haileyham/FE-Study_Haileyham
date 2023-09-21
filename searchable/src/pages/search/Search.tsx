@@ -115,20 +115,29 @@ export default function Searching(): JSX.Element {
                     <h1>찾아보자!</h1>
                     <input onChange={handleInputChange} type="text" />
                     <button onClick={get}>검색</button>
-                    <p>{title}</p>
+                    {/* <p>{title}</p> */}
                 </header>
                 <main className="cultureContainer">
                     {eventData &&
                         eventData.map((data) => {
                             return (
                                 <div key={data.id} className="cultureBox">
-                                    <h2>{data.TITLE}</h2>
-                                    <img src={data.MAIN_IMG as string} alt="" />
-                                    <p>{data.DATE}</p>
-                                    <p>{data.GUNAME}</p>
-                                    <p>{data.IS_FREE}</p>
-                                    <p>{data.PLACE}</p>
-                                    <p>{data.CODENAME}</p>
+                                    <a
+                                        className="hiddenBoxLink"
+                                        href={data.HMPG_ADDR as string}
+                                        target="blank"
+                                    >
+                                        <h2>{data.TITLE}</h2>
+                                        <img
+                                            src={data.MAIN_IMG as string}
+                                            alt=""
+                                        />
+                                        <p>{data.DATE}</p>
+                                        <p>{data.GUNAME}</p>
+                                        <p>{data.IS_FREE}</p>
+                                        <p>{data.PLACE}</p>
+                                        <p>{data.CODENAME}</p>
+                                    </a>
                                 </div>
                             );
                         })}

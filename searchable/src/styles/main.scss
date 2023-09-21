@@ -49,12 +49,27 @@ $mainColor: rgb(184, 218, 255);
     width: 1080px;
     flex-wrap: wrap;
     justify-content: flex-start;
+    .hiddenBoxLink {
+        cursor: pointer;
+        color: inherit;
+        text-decoration: none;
+    }
     .cultureBox {
         background-color: rgb(237, 237, 248);
         width: calc(30% - 20px); /* 너비를 조절하고 간격을 뺀 크기로 설정 */
         padding: 10px;
         border-radius: 10px;
         margin-left: 17px;
+        h2 {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; /* 최대 표시할 줄 수 설정 */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 60px;
+            width: 90%;
+            margin: 20px auto;
+        }
         img {
             width: 90%;
             height: 20rem;
