@@ -3,12 +3,17 @@ export function setSessionData<T>(key: string, value: T) {
     sessionStorage.setItem(key, jsonData);
 }
 
-export function getSessionData<T>(key: string): T | null {
+interface CulturalEvent {
+    [key: string]: string | null | undefined;
+}
+
+export function getSessionData<T>(key: string): CulturalEvent[] | null {
     const jsonData = sessionStorage.getItem(key);
     if (jsonData) {
         return JSON.parse(jsonData);
     }
     return null;
+    // return jsonData ? JSON.parse(jsonData) : null;
 }
 
 export function clearSessionData(key: string) {
