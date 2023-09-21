@@ -108,12 +108,22 @@ export default function Searching(): JSX.Element {
         setTitle(e.target.value);
     };
 
+    const handleKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            console.log('헬로');
+        }
+    };
+
     return (
         <>
             <div className="searchContainer">
                 <header className="searchHeader">
                     <h1>찾아보자!</h1>
-                    <input onChange={handleInputChange} type="text" />
+                    <input
+                        onChange={handleInputChange}
+                        onKeyDown={handleKeyPress}
+                        type="text"
+                    />
                     <button onClick={get}>검색</button>
                     {/* <p>{title}</p> */}
                 </header>
