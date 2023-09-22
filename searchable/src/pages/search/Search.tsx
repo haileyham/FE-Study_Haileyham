@@ -110,8 +110,9 @@ export default function Searching(): JSX.Element {
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            console.log('헬로');
+            // console.log('헬로');
         }
+        console.log(e.code);
     };
 
     return (
@@ -121,9 +122,15 @@ export default function Searching(): JSX.Element {
                     <h1>찾아보자!</h1>
                     <input
                         onChange={handleInputChange}
-                        onKeyDown={handleKeyPress}
+                        // onKeyDown={handleKeyPress}
                         type="text"
                     />
+                    {/* <input
+                        type="text"
+                        onKeyDown={(e) => {
+                            handleKeyPress(e);
+                        }}
+                    /> */}
                     <button onClick={get}>검색</button>
                     {/* <p>{title}</p> */}
                 </header>
