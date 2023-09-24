@@ -16,6 +16,8 @@ export default function Searching(): JSX.Element {
 
     const debounced = useDebounce(title, 700);
 
+    const [searchIndex, setSearchIndex] = useState<number>(0);
+
     const get = async (): Promise<void> => {
         const existingData = getSessionData(debounced);
         if (existingData) {
@@ -110,7 +112,16 @@ export default function Searching(): JSX.Element {
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
-            // console.log('헬로');
+            console.log('헬로');
+        }
+        if (e.key === 'Tab') {
+            console.log('Tab');
+        }
+        if (e.key === 'ArrowDown') {
+            console.log('아래');
+        }
+        if (e.key === 'ArrowUp') {
+            console.log('위');
         }
         console.log(e.code);
     };
@@ -122,16 +133,24 @@ export default function Searching(): JSX.Element {
                     <h1>찾아보자!</h1>
                     <input
                         onChange={handleInputChange}
-                        // onKeyDown={handleKeyPress}
+                        onKeyDown={handleKeyPress}
                         type="text"
                     />
-                    {/* <input
-                        type="text"
-                        onKeyDown={(e) => {
-                            handleKeyPress(e);
-                        }}
-                    /> */}
                     <button onClick={get}>검색</button>
+                    <ul className="searchRecommendBox">
+                        {eventData.slice(0, 5).map((data, i) => {
+                            return (
+                                <li
+                                    key={data.id}
+                                    className={
+                                        i === searchIndex ? 'selected' : ''
+                                    }
+                                >
+                                    {data.TITLE}
+                                </li>
+                            );
+                        })}
+                    </ul>
                     {/* <p>{title}</p> */}
                 </header>
                 <main className="cultureContainer">
