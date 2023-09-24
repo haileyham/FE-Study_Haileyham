@@ -78,3 +78,20 @@ $mainColor: rgb(184, 218, 255);
         }
     }
 }
+
+.searchRecommendBox {
+    list-style: none;
+    background: #fff;
+    width: 250px;
+    margin-left: 280px;
+    border-radius: 5px;
+    line-height: 30px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.selected {
+    background: yellow;
+}
