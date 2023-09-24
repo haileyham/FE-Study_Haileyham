@@ -14,11 +14,16 @@ export default function Searching(): JSX.Element {
 
     const [title, setTitle] = useState<string>('');
 
-    const debounced = useDebounce(title, 700);
+    const debounced = useDebounce(title, 400);
 
     const [searchIndex, setSearchIndex] = useState<number>(0);
 
     const get = async (): Promise<void> => {
+        if (!debounced) {
+            // 검색어가 비어있을 경우 아무 작업도 하지 않음
+            return;
+        }
+
         const existingData = getSessionData(debounced);
         if (existingData) {
             console.log(existingData);
@@ -113,12 +118,14 @@ export default function Searching(): JSX.Element {
     const handleKeyPress = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             console.log('헬로');
+            get();
         }
         if (e.key === 'Tab') {
             console.log('Tab');
         }
         if (e.key === 'ArrowDown') {
             console.log('아래');
+            setSearchIndex((a) => a + 1);
         }
         if (e.key === 'ArrowUp') {
             console.log('위');
