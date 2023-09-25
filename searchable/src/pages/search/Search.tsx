@@ -107,7 +107,9 @@ export default function Searching(): JSX.Element {
         }
     };
 
-    // useEffect(() => {}, []);
+    useEffect(() => {
+        get();
+    }, [debounced]);
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -154,7 +156,12 @@ export default function Searching(): JSX.Element {
                                         i === searchIndex ? 'selected' : ''
                                     }
                                 >
-                                    {data.TITLE}
+                                    <a
+                                        href={data.HMPG_ADDR as string}
+                                        target="blank"
+                                    >
+                                        {data.TITLE}
+                                    </a>
                                 </li>
                             );
                         })}
