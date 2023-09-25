@@ -1,3 +1,8 @@
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 $mainColor: rgb(184, 218, 255);
 
 //main페이지
@@ -36,6 +41,9 @@ $mainColor: rgb(184, 218, 255);
         margin-left: 1rem;
         color: white;
         cursor: pointer;
+    }
+    button:focus {
+        outline: 0.3rem solid rgb(102, 116, 131);
     }
     input:focus {
         outline: 0.3rem solid rgb(123, 187, 255);
