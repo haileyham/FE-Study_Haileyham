@@ -16,7 +16,7 @@ export default function Searching(): JSX.Element {
 
     const debounced = useDebounce(title, 400);
 
-    const [searchIndex, setSearchIndex] = useState<number>(0);
+    const [searchIndex, setSearchIndex] = useState<number>(-1);
 
     const get = async (): Promise<void> => {
         if (!debounced) {
@@ -121,6 +121,12 @@ export default function Searching(): JSX.Element {
         if (e.key === 'Enter') {
             console.log('헬로');
             get();
+            const searchA = document.querySelector(
+                '#searchA',
+            ) as HTMLElement | null;
+            if (searchA) {
+                searchA.click();
+            }
         }
         if (e.key === 'Tab') {
             console.log('Tab');
@@ -141,31 +147,35 @@ export default function Searching(): JSX.Element {
             <div className="searchContainer">
                 <header className="searchHeader">
                     <h1>찾아보자!</h1>
-                    <input
-                        onChange={handleInputChange}
-                        onKeyDown={handleKeyPress}
-                        type="text"
-                    />
-                    <button onClick={get}>검색</button>
-                    <ul className="searchRecommendBox">
-                        {eventData.slice(0, 5).map((data, i) => {
-                            return (
-                                <li
-                                    key={data.id}
-                                    className={
-                                        i === searchIndex ? 'selected' : ''
-                                    }
-                                >
-                                    <a
-                                        href={data.HMPG_ADDR as string}
-                                        target="blank"
+                    <div className="searchReco">
+                        <input
+                            onChange={handleInputChange}
+                            onKeyDown={handleKeyPress}
+                            type="text"
+                        />
+                        <ul className="searchRecommendBox">
+                            {eventData.slice(0, 5).map((data, i) => {
+                                return (
+                                    <li
+                                        key={data.id}
+                                        className={
+                                            i === searchIndex ? 'selected' : ''
+                                        }
                                     >
-                                        {data.TITLE}
-                                    </a>
-                                </li>
-                            );
-                        })}
-                    </ul>
+                                        <a
+                                            href={data.HMPG_ADDR as string}
+                                            target="blank"
+                                            id="searchA"
+                                        >
+                                            {data.TITLE}
+                                        </a>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                    <button onClick={get}>검색</button>
+
                     {/* <p>{title}</p> */}
                 </header>
                 <main className="cultureContainer">

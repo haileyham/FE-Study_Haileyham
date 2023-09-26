@@ -87,19 +87,29 @@ $mainColor: rgb(184, 218, 255);
     }
 }
 
+.searchReco {
+    position: relative;
+    display: inline-block;
+}
+
 .searchRecommendBox {
+    position: absolute;
     list-style: none;
     background: #fff;
-    width: 250px;
-    margin-left: 280px;
+    width: 253px;
     border-radius: 5px;
     line-height: 30px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
     padding: 10px;
+    margin-top: 5px;
+    li {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: left;
+    }
 }
 
 .selected {
-    background: yellow;
+    background: rgb(152, 249, 191);
+    border-radius: 5px;
 }
