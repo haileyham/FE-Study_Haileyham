@@ -20,6 +20,8 @@ export default function Searching(): JSX.Element {
     const [selectedRecommendationIndex, setSelectedRecommendationIndex] =
         useState<number>(-1);
 
+    const [buttonClicked, setButtonClicked] = useState<boolean>(false);
+
     const get = async (): Promise<void> => {
         if (!debounced) {
             // 검색어가 비어있을 경우 아무 작업도 하지 않음
@@ -110,7 +112,9 @@ export default function Searching(): JSX.Element {
     };
 
     useEffect(() => {
-        get();
+        if (debounced) {
+            get();
+        }
     }, [debounced]);
 
     const handleInputChange = (
@@ -202,12 +206,20 @@ export default function Searching(): JSX.Element {
                             })}
                         </ul>
                     </div>
-                    <button onClick={get}>검색</button>
+                    <button
+                        onClick={() => {
+                            get();
+                            setButtonClicked(true);
+                        }}
+                    >
+                        검색
+                    </button>
 
                     {/* <p>{title}</p> */}
                 </header>
                 <main className="cultureContainer">
-                    {eventData &&
+                    {buttonClicked &&
+                        eventData &&
                         eventData.map((data) => {
                             return (
                                 <div key={data.id} className="cultureBox">
