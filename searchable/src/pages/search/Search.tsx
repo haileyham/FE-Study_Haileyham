@@ -17,6 +17,8 @@ export default function Searching(): JSX.Element {
     const debounced = useDebounce(title, 400);
 
     const [searchIndex, setSearchIndex] = useState<number>(-1);
+    const [selectedRecommendationIndex, setSelectedRecommendationIndex] =
+        useState<number>(-1);
 
     const get = async (): Promise<void> => {
         if (!debounced) {
@@ -115,6 +117,7 @@ export default function Searching(): JSX.Element {
         e: React.ChangeEvent<HTMLInputElement>,
     ): void => {
         setTitle(e.target.value);
+        setSelectedRecommendationIndex(-1); // 검색어 입력 시 추천 검색어 선택 인덱스 초기화
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -155,6 +158,11 @@ export default function Searching(): JSX.Element {
                         />
                         <ul className="searchRecommendBox">
                             {eventData.slice(0, 5).map((data, i) => {
+                                const reText = data.TITLE || '';
+                                const startIndex = reText
+                                    .toLowerCase()
+                                    .indexOf(title.toLowerCase());
+                                const endIndex = startIndex + debounced.length;
                                 return (
                                     <li
                                         key={data.id}
@@ -167,7 +175,24 @@ export default function Searching(): JSX.Element {
                                             target="blank"
                                             id="searchA"
                                         >
-                                            {data.TITLE}
+                                            {startIndex > -1 &&
+                                            endIndex > -1 ? (
+                                                <>
+                                                    {reText.slice(
+                                                        0,
+                                                        startIndex,
+                                                    )}
+                                                    <strong>
+                                                        {reText.slice(
+                                                            startIndex,
+                                                            endIndex,
+                                                        )}
+                                                    </strong>
+                                                    {reText.slice(endIndex)}
+                                                </>
+                                            ) : (
+                                                reText
+                                            )}
                                         </a>
                                     </li>
                                 );
