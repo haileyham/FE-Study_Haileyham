@@ -4,6 +4,10 @@ a {
 }
 
 $mainColor: rgb(184, 218, 255);
+body {
+    background-color: $mainColor;
+    overflow-y: scroll;
+}
 
 //main페이지
 .searchBox {
@@ -19,10 +23,9 @@ $mainColor: rgb(184, 218, 255);
 
 //searching페이지
 .searchContainer {
-    padding: 30px;
-    text-align: center;
-    margin: auto;
     max-width: 1080px;
+    margin: auto;
+    text-align: center;
 }
 
 .searchHeader {
@@ -42,6 +45,9 @@ $mainColor: rgb(184, 218, 255);
         color: white;
         cursor: pointer;
     }
+    input {
+        width: 30rem;
+    }
     button:focus {
         outline: 0.3rem solid rgb(102, 116, 131);
     }
@@ -54,7 +60,7 @@ $mainColor: rgb(184, 218, 255);
     background-color: $mainColor;
     display: flex;
     gap: 20px;
-    width: 1080px;
+    max-width: 1080px;
     flex-wrap: wrap;
     justify-content: flex-start;
     .hiddenBoxLink {
@@ -65,9 +71,10 @@ $mainColor: rgb(184, 218, 255);
     .cultureBox {
         background-color: rgb(237, 237, 248);
         width: calc(30% - 20px); /* 너비를 조절하고 간격을 뺀 크기로 설정 */
+        flex-grow: 1;
         padding: 10px;
         border-radius: 10px;
-        margin-left: 17px;
+        // margin-left: 17px;
         h2 {
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -96,10 +103,10 @@ $mainColor: rgb(184, 218, 255);
     position: absolute;
     list-style: none;
     background: #fff;
-    width: 253px;
+    width: 30rem;
     border-radius: 5px;
     line-height: 30px;
-    padding: 10px;
+    padding: 1rem;
     margin-top: 5px;
     li {
         text-overflow: ellipsis;
