@@ -166,7 +166,9 @@ export default function Searching(): JSX.Element {
                         />
                         {debounced ? (
                             <ul className="searchRecommendBox">
-                                {eventDataReco && eventDataReco.length > 0 ? (
+                                {title &&
+                                eventDataReco &&
+                                eventDataReco.length > 0 ? (
                                     eventDataReco.slice(0, 5).map((data, i) => {
                                         const recommendationText =
                                             data.TITLE || '';
@@ -215,15 +217,16 @@ export default function Searching(): JSX.Element {
                                         );
                                     })
                                 ) : (
-                                    <li>{title}</li>
+                                    <li>{debounced}</li>
                                 )}
                             </ul>
                         ) : null}
                     </div>
                     <button
                         onClick={() => {
-                            get();
                             setButtonClicked(true);
+                            setTitle('');
+                            get();
                         }}
                     >
                         검색
