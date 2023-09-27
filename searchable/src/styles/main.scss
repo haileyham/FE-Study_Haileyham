@@ -110,6 +110,10 @@ $mainColor: rgb(184, 218, 255);
 }
 
 .selected {
-    background: rgb(152, 249, 191);
+    background: $mainColor;
     border-radius: 5px;
+}
+
+.recommendStrong {
+    color: rgb(86, 105, 249);
 }

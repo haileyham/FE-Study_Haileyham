@@ -174,6 +174,7 @@ export default function Searching(): JSX.Element {
                                             href={data.HMPG_ADDR as string}
                                             target="blank"
                                             id="searchA"
+                                            title={data.TITLE as string}
                                         >
                                             {startIndex > -1 &&
                                             endIndex > -1 ? (
@@ -182,7 +183,7 @@ export default function Searching(): JSX.Element {
                                                         0,
                                                         startIndex,
                                                     )}
-                                                    <strong>
+                                                    <strong className="recommendStrong">
                                                         {recommendationText.slice(
                                                             startIndex,
                                                             endIndex,
