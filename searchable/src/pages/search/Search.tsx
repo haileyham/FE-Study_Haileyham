@@ -166,51 +166,57 @@ export default function Searching(): JSX.Element {
                         />
                         {debounced ? (
                             <ul className="searchRecommendBox">
-                                {eventDataReco.slice(0, 5).map((data, i) => {
-                                    const recommendationText = data.TITLE || '';
-                                    const startIndex = recommendationText
-                                        .toLowerCase()
-                                        .indexOf(title.toLowerCase());
-                                    const endIndex = startIndex + title.length;
-                                    return (
-                                        <li
-                                            key={data.id}
-                                            className={
-                                                i === searchIndex
-                                                    ? 'selected'
-                                                    : ''
-                                            }
-                                        >
-                                            <a
-                                                href={data.HMPG_ADDR as string}
-                                                target="blank"
-                                                id="searchA"
-                                                title={data.TITLE as string}
+                                {eventDataReco && eventDataReco.length > 0 ? (
+                                    eventDataReco.slice(0, 5).map((data, i) => {
+                                        const recommendationText =
+                                            data.TITLE || '';
+                                        const startIndex = recommendationText
+                                            .toLowerCase()
+                                            .indexOf(title.toLowerCase());
+                                        const endIndex =
+                                            startIndex + title.length;
+                                        return (
+                                            <li
+                                                key={data.id}
+                                                className={
+                                                    i === searchIndex
+                                                        ? 'selected'
+                                                        : ''
+                                                }
                                             >
-                                                {startIndex > -1 &&
-                                                endIndex > -1 ? (
-                                                    <>
-                                                        {recommendationText.slice(
-                                                            0,
-                                                            startIndex,
-                                                        )}
-                                                        <strong className="recommendStrong">
+                                                <a
+                                                    href={
+                                                        data.HMPG_ADDR as string
+                                                    }
+                                                    target="blank"
+                                                    id="searchA"
+                                                    title={data.TITLE as string}
+                                                >
+                                                    {startIndex > -1 &&
+                                                    endIndex > -1 ? (
+                                                        <>
                                                             {recommendationText.slice(
+                                                                0,
                                                                 startIndex,
+                                                            )}
+                                                            <strong className="recommendStrong">
+                                                                {recommendationText.slice(
+                                                                    startIndex,
+                                                                    endIndex,
+                                                                )}
+                                                            </strong>
+                                                            {recommendationText.slice(
                                                                 endIndex,
                                                             )}
-                                                        </strong>
-                                                        {recommendationText.slice(
-                                                            endIndex,
-                                                        )}
-                                                    </>
-                                                ) : (
-                                                    recommendationText
-                                                )}
-                                            </a>
-                                        </li>
-                                    );
-                                })}
+                                                        </>
+                                                    ) : null}
+                                                </a>
+                                            </li>
+                                        );
+                                    })
+                                ) : (
+                                    <li>{title}</li>
+                                )}
                             </ul>
                         ) : null}
                     </div>
