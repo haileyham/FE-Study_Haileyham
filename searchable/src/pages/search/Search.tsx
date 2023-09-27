@@ -158,8 +158,8 @@ export default function Searching(): JSX.Element {
                         />
                         <ul className="searchRecommendBox">
                             {eventData.slice(0, 5).map((data, i) => {
-                                const reText = data.TITLE || '';
-                                const startIndex = reText
+                                const recommendationText = data.TITLE || '';
+                                const startIndex = recommendationText
                                     .toLowerCase()
                                     .indexOf(title.toLowerCase());
                                 const endIndex = startIndex + debounced.length;
@@ -178,20 +178,22 @@ export default function Searching(): JSX.Element {
                                             {startIndex > -1 &&
                                             endIndex > -1 ? (
                                                 <>
-                                                    {reText.slice(
+                                                    {recommendationText.slice(
                                                         0,
                                                         startIndex,
                                                     )}
                                                     <strong>
-                                                        {reText.slice(
+                                                        {recommendationText.slice(
                                                             startIndex,
                                                             endIndex,
                                                         )}
                                                     </strong>
-                                                    {reText.slice(endIndex)}
+                                                    {recommendationText.slice(
+                                                        endIndex,
+                                                    )}
                                                 </>
                                             ) : (
-                                                reText
+                                                recommendationText
                                             )}
                                         </a>
                                     </li>
