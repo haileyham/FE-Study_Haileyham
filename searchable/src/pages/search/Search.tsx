@@ -8,6 +8,7 @@ import { getSessionData, setSessionData } from '../../utils/sessionStorage';
 // XML 파싱한 것 json으로 변환해서 사용하기
 export default function Searching(): JSX.Element {
     const [eventData, setEventData] = useState<CulturalEvent[]>([]);
+    const [eventDataReco, setEventDataReco] = useState<CulturalEvent[]>([]);
     interface CulturalEvent {
         [key: string]: string | null | undefined;
     }
@@ -32,6 +33,7 @@ export default function Searching(): JSX.Element {
         if (existingData) {
             console.log(existingData);
             setEventData(existingData);
+            setEventDataReco(existingData); //따로
         } else {
             try {
                 // const apiKey = process.env.REACT_APP_API_KEY;
@@ -104,6 +106,7 @@ export default function Searching(): JSX.Element {
                 console.log(culturalEvents);
                 setEventData(culturalEvents);
                 // console.log(eventData);
+                setEventDataReco(culturalEvents); // 따로빼서
                 setSessionData(debounced, culturalEvents);
             } catch (error) {
                 console.log('에러발생:', error);
@@ -122,6 +125,7 @@ export default function Searching(): JSX.Element {
     ): void => {
         setTitle(e.target.value);
         setSelectedRecommendationIndex(-1); // 검색어 입력 시 추천 검색어 선택 인덱스 초기화
+        setButtonClicked(false);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -161,7 +165,7 @@ export default function Searching(): JSX.Element {
                             type="text"
                         />
                         <ul className="searchRecommendBox">
-                            {eventData.slice(0, 5).map((data, i) => {
+                            {eventDataReco.slice(0, 5).map((data, i) => {
                                 const recommendationText = data.TITLE || '';
                                 const startIndex = recommendationText
                                     .toLowerCase()
