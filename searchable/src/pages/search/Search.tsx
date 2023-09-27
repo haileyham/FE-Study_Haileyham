@@ -162,7 +162,7 @@ export default function Searching(): JSX.Element {
                                 const startIndex = recommendationText
                                     .toLowerCase()
                                     .indexOf(title.toLowerCase());
-                                const endIndex = startIndex + debounced.length;
+                                const endIndex = startIndex + title.length;
                                 return (
                                     <li
                                         key={data.id}
