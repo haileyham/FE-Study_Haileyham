@@ -144,11 +144,11 @@ export default function Searching(): JSX.Element {
         }
         if (e.key === 'ArrowDown') {
             // console.log('아래');
-            setSearchIndex((a) => (a !== 4 ? a + 1 : a));
+            setSearchIndex((a) => (a !== eventDataReco.length ? a + 1 : 0));
         }
         if (e.key === 'ArrowUp') {
             // console.log('위');
-            setSearchIndex((a) => (a !== 0 ? a - 1 : a));
+            setSearchIndex((a) => (a !== 0 ? a - 1 : eventDataReco.length));
         }
         // console.log(e.code);
     };
@@ -169,7 +169,7 @@ export default function Searching(): JSX.Element {
                                 {title &&
                                 eventDataReco &&
                                 eventDataReco.length > 0 ? (
-                                    eventDataReco.slice(0, 5).map((data, i) => {
+                                    eventDataReco.map((data, i) => {
                                         const recommendationText =
                                             data.TITLE || '';
                                         const startIndex = recommendationText
