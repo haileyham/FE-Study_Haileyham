@@ -40,7 +40,7 @@ export default function Search(): JSX.Element {
             {info &&
                 Array.from(info.querySelectorAll('TITLE')).map((a: any, i) => (
                     // <div>hello</div>
-                    <div>{a.textContent}</div>
+                    <div key={i}>{a.textContent}</div>
                 ))}
         </>
     );
