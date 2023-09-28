@@ -22,6 +22,7 @@ export default function Searching(): JSX.Element {
         useState<number>(-1);
 
     const [buttonClicked, setButtonClicked] = useState<boolean>(false);
+    const [실험, set실험] = useState<number | null | undefined>();
 
     const get = async (): Promise<void> => {
         if (!debounced) {
@@ -152,17 +153,28 @@ export default function Searching(): JSX.Element {
         }
         // console.log(e.code);
     };
+    // console.log(eventDataReco);
+    // console.log(eventData);
 
     return (
         <>
             <div className="searchContainer">
                 <header className="searchHeader">
                     <h1>찾아보자!</h1>
+                    {/* {eventDataReco ? eventDataReco[searchIndex]?.TITLE : ''}
+                    {eventDataReco && eventDataReco[searchIndex]?.TITLE} */}
                     <div className="searchReco">
                         <input
                             onChange={handleInputChange}
                             onKeyDown={handleKeyPress}
                             type="text"
+                            value={
+                                searchIndex >= 0 &&
+                                eventDataReco[searchIndex]?.TITLE
+                                    ? (eventDataReco[searchIndex]
+                                          ?.TITLE as string)
+                                    : (title as string)
+                            }
                         />
                         {debounced ? (
                             <ul className="searchRecommendBox">
