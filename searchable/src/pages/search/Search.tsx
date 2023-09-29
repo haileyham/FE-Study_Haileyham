@@ -18,11 +18,8 @@ export default function Searching(): JSX.Element {
     const debounced = useDebounce(title, 400);
 
     const [searchIndex, setSearchIndex] = useState<number>(-1);
-    const [selectedRecommendationIndex, setSelectedRecommendationIndex] =
-        useState<number>(-1);
 
     const [buttonClicked, setButtonClicked] = useState<boolean>(false);
-    const [실험, set실험] = useState<number | null | undefined>();
 
     const get = async (): Promise<void> => {
         if (!debounced) {
@@ -125,7 +122,6 @@ export default function Searching(): JSX.Element {
         e: React.ChangeEvent<HTMLInputElement>,
     ): void => {
         setTitle(e.target.value);
-        setSelectedRecommendationIndex(-1); // 검색어 입력 시 추천 검색어 선택 인덱스 초기화
         setButtonClicked(false);
         setSearchIndex(-1);
     };
