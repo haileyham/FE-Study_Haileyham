@@ -246,7 +246,7 @@ export default function Searching(): JSX.Element {
 
                     {/* <p>{title}</p> */}
                 </header>
-                <main className="cultureContainer">
+                {/* <main className="cultureContainer">
                     {buttonClicked &&
                         eventData &&
                         eventData.map((data) => {
@@ -271,6 +271,35 @@ export default function Searching(): JSX.Element {
                                 </div>
                             );
                         })}
+                </main> */}
+                <main className="cultureContainer">
+                    {buttonClicked && eventDataReco[searchIndex] ? (
+                        <div className="cultureBox2">
+                            <a
+                                className="hiddenBoxLink"
+                                href={
+                                    eventDataReco[searchIndex]
+                                        ?.HMPG_ADDR as string
+                                }
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <h2>{eventDataReco[searchIndex]?.TITLE}</h2>
+                                <img
+                                    src={
+                                        eventDataReco[searchIndex]
+                                            ?.MAIN_IMG as string
+                                    }
+                                    alt=""
+                                />
+                                <p>{eventDataReco[searchIndex]?.DATE}</p>
+                                <p>{eventDataReco[searchIndex]?.GUNAME}</p>
+                                <p>{eventDataReco[searchIndex]?.IS_FREE}</p>
+                                <p>{eventDataReco[searchIndex]?.PLACE}</p>
+                                <p>{eventDataReco[searchIndex]?.CODENAME}</p>
+                            </a>
+                        </div>
+                    ) : null}
                 </main>
             </div>
         </>
