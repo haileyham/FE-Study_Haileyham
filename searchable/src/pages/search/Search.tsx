@@ -127,6 +127,7 @@ export default function Searching(): JSX.Element {
         setTitle(e.target.value);
         setSelectedRecommendationIndex(-1); // 검색어 입력 시 추천 검색어 선택 인덱스 초기화
         setButtonClicked(false);
+        setSearchIndex(-1);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -299,7 +300,32 @@ export default function Searching(): JSX.Element {
                                 <p>{eventDataReco[searchIndex]?.CODENAME}</p>
                             </a>
                         </div>
-                    ) : null}
+                    ) : (
+                        buttonClicked &&
+                        eventData &&
+                        eventData.map((data) => {
+                            return (
+                                <div key={data.id} className="cultureBox">
+                                    <a
+                                        className="hiddenBoxLink"
+                                        href={data.HMPG_ADDR as string}
+                                        target="blank"
+                                    >
+                                        <h2>{data.TITLE}</h2>
+                                        <img
+                                            src={data.MAIN_IMG as string}
+                                            alt=""
+                                        />
+                                        <p>{data.DATE}</p>
+                                        <p>{data.GUNAME}</p>
+                                        <p>{data.IS_FREE}</p>
+                                        <p>{data.PLACE}</p>
+                                        <p>{data.CODENAME}</p>
+                                    </a>
+                                </div>
+                            );
+                        })
+                    )}
                 </main>
             </div>
         </>
