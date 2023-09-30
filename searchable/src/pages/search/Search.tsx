@@ -141,17 +141,12 @@ export default function Searching(): JSX.Element {
             console.log('Tab');
         }
         if (e.key === 'ArrowDown') {
-            // console.log('아래');
             setSearchIndex((a) => (a !== eventDataReco.length ? a + 1 : 0));
         }
         if (e.key === 'ArrowUp') {
-            // console.log('위');
             setSearchIndex((a) => (a !== 0 ? a - 1 : eventDataReco.length));
         }
-        // console.log(e.code);
     };
-    // console.log(eventDataReco);
-    // console.log(eventData);
 
     return (
         <>
