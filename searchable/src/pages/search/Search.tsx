@@ -163,6 +163,7 @@ export default function Searching(): JSX.Element {
                             value={
                                 searchIndex >= 0 &&
                                 !buttonClicked &&
+                                title &&
                                 eventDataReco[searchIndex]?.TITLE
                                     ? (eventDataReco[searchIndex]
                                           ?.TITLE as string)
