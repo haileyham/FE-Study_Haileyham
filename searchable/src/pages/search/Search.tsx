@@ -169,6 +169,16 @@ export default function Searching(): JSX.Element {
                                     : (title as string)
                             }
                         />
+                        {title ? (
+                            <span
+                                className="searchClose"
+                                onClick={() => {
+                                    setTitle('');
+                                }}
+                            >
+                                Ｘ
+                            </span>
+                        ) : null}
                         {debounced ? (
                             <ul className="searchRecommendBox">
                                 {title &&
