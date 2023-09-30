@@ -132,3 +132,18 @@ li:hover {
 .recommendStrong {
     color: rgb(86, 105, 249);
 }
+
+.searchClose {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.55rem;
+    font-size: 1.1rem;
+    font-weight: 900;
+    padding: 5px;
+    color: gray;
+    cursor: pointer;
+}
+
+.searchClose:hover {
+    color: black;
+}
