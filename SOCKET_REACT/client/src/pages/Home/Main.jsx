@@ -1,5 +1,5 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 // 이미지 상대 경로 설정
@@ -9,6 +9,9 @@ const imagePath = process.env.PUBLIC_URL + '/172444.webp';
 
 export default function Main() {
     const navigate = useNavigate();
+
+    const [username, setUsername] = useState(""); // 사용자 닉네임
+    const [room, setRoom] = useState(""); // 방 번호
 
     return (
         <>
@@ -24,8 +27,11 @@ export default function Main() {
                 </IntoChatContainer1>
                 <IntoChatContainer2>
                     <WrapInputBtn>
-                        <UsernameInput placeholder='닉네임 입력'></UsernameInput>
-                        <IntoChatRoomBtn onClick={() => { navigate('/chattingRoom') }}>채팅방 입장하기</IntoChatRoomBtn>
+                        <RoomNumberInput placeholder='방번호 입력' type="number" onChange={(e) => { setRoom(e.target.value) }}></RoomNumberInput>
+                        <UsernameInput placeholder='닉네임 입력' onChange={(e) => { setUsername(e.target.value) }}></UsernameInput>
+                        <Link to={`/chattingRoom?username=${username}&room=${room}`}>
+                            <IntoChatRoomBtn>채팅방 입장</IntoChatRoomBtn>
+                        </Link>
                     </WrapInputBtn>
                 </IntoChatContainer2>
             </MainContainer>
@@ -102,21 +108,26 @@ const WrapInputBtn = styled.div`
     gap:10px;
     height:30px;
     align-items: center;
+    font-size: 1rem;
 `
 const UsernameInput = styled.input`
     border-radius: 5px;
     border:  #ffebeb solid 5px;
     outline: none;
     padding:2rem;
-    font-size: 2rem;
+`
+const RoomNumberInput = styled.input`
+    border-radius: 5px;
+    border:  #ffebeb solid 5px;
+    outline: none;
+    padding:2rem;
+    width:100px;
 `
 const IntoChatRoomBtn = styled.button`
     background: #ffe0e5;
     border-radius: 5px;
     border: none;
     padding:2rem;
-    width:20rem;
-    font-size: 2rem;
     cursor: pointer;
     &:hover{
         background: pink;
