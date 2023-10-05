@@ -7,10 +7,25 @@ const socket = io.connect("http://localhost:3001") //back에서는 3000으로 fr
 function App() {
     const [message, setMessage] = useState(""); //input 입력한 것 message에 담기
     const [messageReceived, setMessageReceived] = useState("");
+    const [room, setRoom] = useState("");
+
+    // 전체 메시지 전달
     const sendMessage = () => {
         socket.emit("send_message", { message }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달
         // input으로 받은 message 서버로 전송
     };
+
+    // 방 접속
+    const joinRoom = () => {
+        if (room !== "") {
+            socket.emit("join_room", room);
+        }
+    }
+
+    // 방 메시지 전달
+    const sendMessageRoom = () => {
+        socket.emit("send_message_Room", { message, room })
+    }
 
     useEffect(() => {
         socket.on("receive_message", (data) => { //서버에서 보낸 것 수신
@@ -20,10 +35,15 @@ function App() {
 
     return (
         <div className="App">
+            <input placeholder='Room Number...' type="number"
+                onChange={(e) => { setRoom(e.target.value) }} />
+            <button onClick={joinRoom}>Room</button>
+            <h1>{room}</h1>
             <input placeholder="Message..."
                 onChange={(e) => { setMessage(e.target.value) }} />
             <button onClick={sendMessage}>Send</button>
             {/* messageReceived 서버로부터 받은 것 보여주기 */}
+            <button onClick={sendMessageRoom}>Room에만</button>
             <h1>Message : {messageReceived}</h1>
         </div>
     );
