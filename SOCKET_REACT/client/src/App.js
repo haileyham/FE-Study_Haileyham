@@ -5,7 +5,7 @@ const socket = io.connect("http://localhost:3001") //back에서는 3000으로 fr
 
 function App() {
     const sendMessage = () => {
-        socket.emit(); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달
+        socket.emit("send_message", { message: "Hello" }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달
     };
 
     return (
