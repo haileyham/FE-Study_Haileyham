@@ -14,10 +14,11 @@ function App() {
 
     // 전체 메시지 전달
     const sendMessage = () => {
-        socket.emit("send_message", { message, user: username }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달
-        // input으로 받은 message 서버로 전송
-        setChatMessage([...chatMessage, { message, user: "YOU" }]);
-        setMessage("");
+        socket.emit("send_message", { message, user: username }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달 // input으로 받은 message 서버로 전송
+        setChatMessage([...chatMessage, { message, user: username }]);//모든 채팅 메시지 저장하기 위해서 배열로 저장 / 기존것에 input message 입력한 것과 user 구분
+        setMessage(""); //input 입력하는 메시지 useState는 초기화
+        console.log(chatMessage)
+
     };
 
     // 방 접속
@@ -36,6 +37,7 @@ function App() {
         socket.on("receive_message", (data) => { //서버에서 보낸 것 수신
             setChatMessage([...chatMessage, { message: data.message, user: data.user }]) //서버에서 받은 것 messageReceived에 담기
         })
+        // console.log(chatMessage)
     }, [socket, chatMessage])
 
     return (
@@ -70,3 +72,4 @@ function App() {
 }
 
 export default App;
+
