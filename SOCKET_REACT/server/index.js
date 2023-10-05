@@ -19,7 +19,8 @@ io.on("connection", (socket) => { //connection 이벤트핸들러, client가 ser
     console.log(`User Connected : ${socket.id}`) // clent server 연결되면 고유 socket ID 출력
 
     socket.on("send_message", (data) => { // client에서 보낸 data
-        console.log(data);
+        // console.log(data);
+        socket.broadcast.emit("receive_message", data); // server에서 client로 메시지 전송 / 메시지 보낸 client에는 안 보내고, 다른 모든 client는 수신
     })
 })
 
