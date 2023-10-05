@@ -9,12 +9,6 @@ function App() {
         socket.emit("send_message", { message: "Hello" }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달
     };
 
-    useEffect(() => {
-        socket.on("receive_message", (data) => { //서버에서 보낸 것 수신
-            alert(data.message);
-        })
-    }, [socket])
-
     return (
         <div className="App">
             <input placeholder="Message..." />
