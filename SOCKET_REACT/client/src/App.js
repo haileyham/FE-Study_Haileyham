@@ -1,18 +1,30 @@
 import './App.css';
 import io from 'socket.io-client'; //socket.io 라이브러리에서 io함수 import / 서버와 통신
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const socket = io.connect("http://localhost:3001") //back에서는 3000으로 front에서는 3001 / io.connect 함수 사용하여 server, socket 연결 / 주의할 점은 server와 client 간의 socket 통신을 위해 동일한 Socket.io 버전 사용해야 함
 
 function App() {
+    const [message, setMessage] = useState(""); //input 입력한 것 message에 담기
+    const [messageReceived, setMessageReceived] = useState("");
     const sendMessage = () => {
-        socket.emit("send_message", { message: "Hello" }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달
+        socket.emit("send_message", { message }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달
+        // input으로 받은 message 서버로 전송
     };
+
+    useEffect(() => {
+        socket.on("receive_message", (data) => { //서버에서 보낸 것 수신
+            setMessageReceived(data.message) //서버에서 받은 것 messageReceived에 담기
+        })
+    }, [socket])
 
     return (
         <div className="App">
-            <input placeholder="Message..." />
+            <input placeholder="Message..."
+                onChange={(e) => { setMessage(e.target.value) }} />
             <button onClick={sendMessage}>Send</button>
+            {/* messageReceived 서버로부터 받은 것 보여주기 */}
+            <h1>Message : {messageReceived}</h1>
         </div>
     );
 }
