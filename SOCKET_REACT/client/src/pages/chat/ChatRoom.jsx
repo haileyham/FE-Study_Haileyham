@@ -1,15 +1,19 @@
 import React from 'react'
 import io from 'socket.io-client'; //socket.io 라이브러리에서 io함수 import / 서버와 통신
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const socket = io.connect("http://localhost:3001") //back에서는 3000으로 front에서는 3001 / io.connect 함수 사용하여 server, socket 연결 / 주의할 점은 server와 client 간의 socket 통신을 위해 동일한 Socket.io 버전 사용해야 함
 
-export default function ChatRoom() {
+export default function ChatRoom(props) {
     const [message, setMessage] = useState(""); //input 입력한 것 message에 담기
     const [messageReceived, setMessageReceived] = useState(""); //서버 수신 메시지
-    const [room, setRoom] = useState(""); // 방 번호
     const [chatMessage, setChatMessage] = useState([]); // 모든 채팅 메시지 저장
-    const [username, setUsername] = useState(""); // 사용자 닉네임
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const username = searchParams.get('username');
+    const room = searchParams.get('room');
 
 
     // 전체 메시지 전달
@@ -30,8 +34,15 @@ export default function ChatRoom() {
 
     // 방 메시지 전달
     const sendMessageRoom = () => {
-        socket.emit("send_message_Room", { message, room })
+        socket.emit("send_message_Room", { message, room, user: username })
+        setChatMessage([...chatMessage, { message, user: username }]);//모든 채팅 메시지 저장하기 위해서 배열로 저장 / 기존것에 input message 입력한 것과 user 구분
+        setMessage(""); //input 입력하는 메시지 useState는 초기화
+        console.log(chatMessage)
     }
+
+    useEffect(() => {
+        joinRoom();
+    }, []);
 
     useEffect(() => {
         socket.on("receive_message", (data) => { //서버에서 보낸 것 수신
@@ -42,14 +53,6 @@ export default function ChatRoom() {
 
     return (
         <div className="App">
-            <input
-                placeholder="Your Nickname..."
-                onChange={(e) => {
-                    setUsername(e.target.value);
-                }}
-            />
-            <input placeholder='Room Number...' type="number"
-                onChange={(e) => { setRoom(e.target.value) }} />
             <button onClick={joinRoom}>Room</button>
             <h1>{room}</h1>
             <input placeholder="Message..."
