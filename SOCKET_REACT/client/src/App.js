@@ -9,12 +9,14 @@ function App() {
     const [messageReceived, setMessageReceived] = useState(""); //서버 수신 메시지
     const [room, setRoom] = useState(""); // 방 번호
     const [chatMessage, setChatMessage] = useState([]); // 모든 채팅 메시지 저장
+    const [username, setUsername] = useState(""); // 사용자 닉네임
+
 
     // 전체 메시지 전달
     const sendMessage = () => {
-        socket.emit("send_message", { message }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달
+        socket.emit("send_message", { message, user: username }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달
         // input으로 받은 message 서버로 전송
-        setChatMessage([...chatMessage, { message, user: "ME" }]);
+        setChatMessage([...chatMessage, { message, user: "YOU" }]);
         setMessage("");
     };
 
@@ -32,12 +34,18 @@ function App() {
 
     useEffect(() => {
         socket.on("receive_message", (data) => { //서버에서 보낸 것 수신
-            setChatMessage([...chatMessage, { message: data.message }]) //서버에서 받은 것 messageReceived에 담기
+            setChatMessage([...chatMessage, { message: data.message, user: data.user }]) //서버에서 받은 것 messageReceived에 담기
         })
     }, [socket, chatMessage])
 
     return (
         <div className="App">
+            <input
+                placeholder="Your Nickname..."
+                onChange={(e) => {
+                    setUsername(e.target.value);
+                }}
+            />
             <input placeholder='Room Number...' type="number"
                 onChange={(e) => { setRoom(e.target.value) }} />
             <button onClick={joinRoom}>Room</button>
@@ -48,10 +56,12 @@ function App() {
             {/* messageReceived 서버로부터 받은 것 보여주기 */}
             <button onClick={sendMessageRoom}>Room에만</button>
             <h1>Message : {messageReceived}</h1>
+            <h1>{username}</h1>
             <div>
                 {chatMessage.map((chat, i) => (
                     <div key={i}>
-                        {chat.user}: {chat.message}
+                        {/* {chat.user}: {chat.message} */}
+                        {chat.user === username ? "YOU" : chat.user}: {chat.message}
                     </div>
                 ))}
             </div>
