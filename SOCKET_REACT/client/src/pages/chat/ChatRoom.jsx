@@ -34,10 +34,15 @@ export default function ChatRoom(props) {
         }
     }
 
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+    const messageWithTime = `${currentHour}:${currentMinute}`;
+
     // 방 메시지 전달
     const sendMessageRoom = () => {
-        socket.emit("send_message_Room", { message, room, user: username, })
-        setChatMessage([...chatMessage, { message, user: username, }]);//모든 채팅 메시지 저장하기 위해서 배열로 저장 / 기존것에 input message 입력한 것과 user 구분
+        socket.emit("send_message_Room", { message, room, user: username, time: messageWithTime })
+        setChatMessage([...chatMessage, { message, user: username, time: messageWithTime }]);//모든 채팅 메시지 저장하기 위해서 배열로 저장 / 기존것에 input message 입력한 것과 user 구분
         setMessage(""); //input 입력하는 메시지 useState는 초기화
         console.log(chatMessage)
     }
@@ -48,7 +53,7 @@ export default function ChatRoom(props) {
 
     useEffect(() => {
         socket.on("receive_message", (data) => { //서버에서 보낸 것 수신
-            setChatMessage([...chatMessage, { message: data.message, user: data.user, }]) //서버에서 받은 것 messageReceived에 담기
+            setChatMessage([...chatMessage, { message: data.message, user: data.user, time: messageWithTime }]) //서버에서 받은 것 messageReceived에 담기
         })
         // console.log(chatMessage)
     }, [socket, chatMessage])
