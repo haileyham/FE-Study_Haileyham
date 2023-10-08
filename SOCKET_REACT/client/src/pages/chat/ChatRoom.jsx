@@ -74,19 +74,20 @@ export default function ChatRoom(props) {
                 <MessageList>
                     {chatMessage.map((chat, i) => (
                         <div key={i}>
-                            {chat.user === username ?
-                                <>
-                                    <MessageMe>
-                                        {chat.user === username ? "YOU" : chat.user}: {chat.message}
-                                        <TimeMe>{chat.time}</TimeMe>
-                                    </MessageMe>
-                                </>
-                                :
-                                <>
-                                    <MessageSomeone>{chat.user === username ? "YOU" : chat.user}: {chat.message}
-                                        <TimeSomeone>{chat.time}</TimeSomeone>
-                                    </MessageSomeone>
-                                </>
+                            {chat.user === "관리자" ?
+                                <SystemMessage>{chat.message} </SystemMessage> : chat.user === username ?
+                                    <>
+                                        <MessageMe>
+                                            {chat.user === username ? "YOU" : chat.user}: {chat.message}
+                                            <TimeMe>{chat.time}</TimeMe>
+                                        </MessageMe>
+                                    </>
+                                    :
+                                    <>
+                                        <MessageSomeone>{chat.user === username ? "YOU" : chat.user}: {chat.message}
+                                            <TimeSomeone>{chat.time}</TimeSomeone>
+                                        </MessageSomeone>
+                                    </>
                             }
                         </div>
                     ))}
@@ -169,7 +170,7 @@ const MessageMe = styled.li`
     border-radius: 10px;
     width:80%;
     margin-left: auto; /* 오른쪽 정렬을 위한 설정 */
-    margin-top:5px;
+    margin-top:10px;
     position: relative;
 `;
 
@@ -179,20 +180,26 @@ const MessageSomeone = styled.li`
     border-radius: 10px;
     width:80%;
     margin-right: auto; /* 왼쪽 정렬을 위한 설정 */
-    margin-top:5px;
+    margin-top:10px;
     position: relative;
 `;
 
 const TimeMe = styled.span`
-    color:black;
+    color:#797979;
     position: absolute;
     left:-50px;
-    top:20px;
+    top:17px;
 `
 
 const TimeSomeone = styled.span`
-    color:black;
+    color:#797979;
     position: absolute;
     right:-50px;
-    top:20px;
+    top:17px;
+`
+
+const SystemMessage = styled.li`
+    color:#797979;
+    line-height: 2rem;
+    margin-top:10px;
 `
