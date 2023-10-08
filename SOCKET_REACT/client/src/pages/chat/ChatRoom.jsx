@@ -47,8 +47,14 @@ export default function ChatRoom(props) {
         console.log(chatMessage)
     }
 
+    // 방입장
+    const notifyUserJoin = () => {
+        socket.emit("user_join", { room, user: username });
+    }
+
     useEffect(() => {
         joinRoom();
+        notifyUserJoin();
     }, []);
 
     useEffect(() => {

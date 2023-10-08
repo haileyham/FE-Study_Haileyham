@@ -33,6 +33,12 @@ io.on("connection", (socket) => { //connection 이벤트핸들러, client가 ser
     socket.on("send_message_Room", (data) => {
         socket.to(data.room).emit("receive_message", data)
     })
+
+    // 방입장
+    socket.on("user_join", ({ room, user }) => {
+        const joinMessage = `${user}님이 채팅방 ${room}에 입장했습니다.`
+        socket.to(room).emit("receive_message", { message: joinMessage, user: "관리자" })
+    })
 })
 
 server.listen(3001, () => {
