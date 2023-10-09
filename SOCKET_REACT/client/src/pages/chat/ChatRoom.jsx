@@ -72,19 +72,23 @@ export default function ChatRoom(props) {
                     <p>myname : {username}</p>
                 </Header>
                 <MessageList>
+                    <p style={{ color: "#525252" }}>- <strong>{username}</strong>님 <strong>{room}</strong>번방에 오신 것을 환영합니다. 자유롭게 대화를 나누세요. -</p>
                     {chatMessage.map((chat, i) => (
                         <div key={i}>
                             {chat.user === "관리자" ?
                                 <SystemMessage>{chat.message} </SystemMessage> : chat.user === username ?
                                     <>
                                         <MessageMe>
-                                            {chat.user === username ? "YOU" : chat.user}: {chat.message}
+                                            <UsernameMe>You</UsernameMe>
+                                            {chat.message}
                                             <TimeMe>{chat.time}</TimeMe>
                                         </MessageMe>
                                     </>
                                     :
                                     <>
-                                        <MessageSomeone>{chat.user === username ? "YOU" : chat.user}: {chat.message}
+                                        <MessageSomeone>
+                                            <UsernameSomeone>{username}</UsernameSomeone>
+                                            {chat.message}
                                             <TimeSomeone>{chat.time}</TimeSomeone>
                                         </MessageSomeone>
                                     </>
@@ -170,7 +174,8 @@ const MessageMe = styled.li`
     border-radius: 10px;
     width:80%;
     margin-left: auto; /* 오른쪽 정렬을 위한 설정 */
-    margin-top:10px;
+    margin-right:10px;
+    margin-top:40px;
     position: relative;
 `;
 
@@ -180,7 +185,8 @@ const MessageSomeone = styled.li`
     border-radius: 10px;
     width:80%;
     margin-right: auto; /* 왼쪽 정렬을 위한 설정 */
-    margin-top:10px;
+    margin-left:10px;
+    margin-top:40px;
     position: relative;
 `;
 
@@ -196,6 +202,20 @@ const TimeSomeone = styled.span`
     position: absolute;
     right:-50px;
     top:17px;
+`
+
+const UsernameMe = styled.p`
+    color:#797979;
+    position: absolute;
+    right:10px;
+    top:-40px;
+    `
+
+const UsernameSomeone = styled.p`
+    color:#797979;
+    position: absolute;
+    left:10px;
+    top:-40px;
 `
 
 const SystemMessage = styled.li`
