@@ -51,7 +51,7 @@ export default function Main() {
         <div style={{ height: '1000vh' }}>
             <div
                 className={
-                    scrollPosition > 200 ? 'scroll-text' : 'scrolled-text'
+                    scrollPosition > 200 ? 'scrolled-text' : 'scroll-text'
                 }
             >
                 스크롤 시 색 변화 빠빰
@@ -83,6 +83,15 @@ export default function Main() {
                     hellohellohellohellohellohe
                     llohellohellohellohellohellohello hellohellohellohellohello
                 </div>
+            </div>
+            <div>
+                <h1
+                    className={
+                        scrollPosition > 2400 ? 'textMoving' : 'textMove'
+                    }
+                >
+                    글자가 커진드아~
+                </h1>
             </div>
             <div ref={targetRef}>이벤트 발생위치</div>
             <button onClick={hello}>Change Text</button>
