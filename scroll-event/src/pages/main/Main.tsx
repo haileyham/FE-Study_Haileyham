@@ -1,15 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import '../../styles/main.scss';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export default function Main() {
     const navigate = useNavigate();
     const [img, setImg] = useState(1);
+    const targetRef = useRef<any>(null);
+    const [scrollPosition, setScrollPosition] = useState(0);
 
+    //찍어보기
     window.addEventListener('scroll', function () {
         console.log(window.scrollY);
     });
 
+    //sticky하는
     const handleScroll = () => {
         const scrollPosition = window.scrollY;
         if (scrollPosition >= 1200) {
@@ -19,6 +23,14 @@ export default function Main() {
         }
     };
 
+    //실험useRef
+    const hello = () => {
+        if (targetRef.current) {
+            targetRef.current.textContent = 'New Text';
+        }
+    };
+
+    //useEffect로
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => {
@@ -28,6 +40,7 @@ export default function Main() {
 
     return (
         <div style={{ height: '1000vh' }}>
+            {/* sticky */}
             <div className="box">
                 <img
                     src={process.env.PUBLIC_URL + `/${img}.jpg`}
@@ -55,6 +68,8 @@ export default function Main() {
                     llohellohellohellohellohellohello hellohellohellohellohello
                 </div>
             </div>
+            <div ref={targetRef}>이벤트 발생위치</div>
+            <button onClick={hello}>Change Text</button>
         </div>
     );
 }
