@@ -23,6 +23,13 @@ export default function Main() {
         }
     };
 
+    //useState / className 이용
+    //지원안할수도있어서 추가
+    const updateScroll = () => {
+        setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+        console.log(scrollPosition);
+    };
+
     //실험useRef
     const hello = () => {
         if (targetRef.current) {
@@ -33,13 +40,22 @@ export default function Main() {
     //useEffect로
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', updateScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', updateScroll);
         };
     }, []);
 
     return (
         <div style={{ height: '1000vh' }}>
+            <div
+                className={
+                    scrollPosition > 200 ? 'scroll-text' : 'scrolled-text'
+                }
+            >
+                스크롤 시 색 변화 빠빰
+            </div>
             {/* sticky */}
             <div className="box">
                 <img

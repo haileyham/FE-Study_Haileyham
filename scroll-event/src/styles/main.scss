@@ -16,3 +16,19 @@
     width: 300px;
     margin-top: 300px;
 }
+
+.scroll-text {
+    margin-top: 500px;
+    text-align: center;
+    font-size: 5rem;
+    color: purple;
+    transition: 1s;
+}
+
+.scrolled-text {
+    margin-top: 500px;
+    text-align: center;
+    font-size: 5rem;
+    color: red;
+    transition: 1s;
+}
