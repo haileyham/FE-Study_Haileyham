@@ -41,6 +41,24 @@ export default function Main() {
     //300s마다
     const throttledScrollHandler = throttleUp(updateScroll, 300);
 
+    ///Observer
+    const targetRef2 = useRef(null);
+
+    useEffect(() => {
+        let observer = new IntersectionObserver((e) => {
+            e.forEach((div) => {
+                if (div.isIntersecting) {
+                    div.target.classList.add('visible');
+                    observer.unobserve(div.target);
+                }
+            });
+        });
+
+        if (targetRef2.current) {
+            observer.observe(targetRef2.current);
+        }
+    }, []);
+
     //useEffect로
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -99,7 +117,11 @@ export default function Main() {
                     글자가 커진드아~
                 </h1>
             </div>
-            <div className="container"></div>
+            <div className="container">
+                <div ref={targetRef2} className="hidden observer">
+                    이 요소가 관찰 대상
+                </div>
+            </div>
             <div ref={targetRef}>이벤트 발생위치</div>
             <button onClick={hello}>Change Text</button>
         </div>
