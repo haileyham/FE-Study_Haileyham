@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import '../../styles/main.scss';
 import React, { useEffect, useRef, useState } from 'react';
+import { throttleUp } from '../../utils/throttleUp';
 
 export default function Main() {
     const navigate = useNavigate();
@@ -37,13 +38,16 @@ export default function Main() {
         }
     };
 
+    //300s마다
+    const throttledScrollHandler = throttleUp(updateScroll, 300);
+
     //useEffect로
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
-        window.addEventListener('scroll', updateScroll);
+        window.addEventListener('scroll', throttledScrollHandler);
         return () => {
             window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('scroll', updateScroll);
+            window.removeEventListener('scroll', throttledScrollHandler);
         };
     }, []);
 
