@@ -53,12 +53,14 @@ export default function Main() {
 
     return (
         <div style={{ height: '1000vh' }}>
-            <div
-                className={
-                    scrollPosition > 200 ? 'scrolled-text' : 'scroll-text'
-                }
-            >
-                스크롤 시 색 변화 빠빰
+            <div className="container">
+                <div
+                    className={
+                        scrollPosition > 200 ? 'scrolled-text' : 'scroll-text'
+                    }
+                >
+                    스크롤 시 색 변화 빠빰
+                </div>
             </div>
             {/* sticky */}
             <div className="box">
@@ -88,15 +90,16 @@ export default function Main() {
                     llohellohellohellohellohellohello hellohellohellohellohello
                 </div>
             </div>
-            <div>
+            <div className="container">
                 <h1
                     className={
-                        scrollPosition > 2400 ? 'textMoving' : 'textMove'
+                        scrollPosition > 3500 ? 'textMoving' : 'textMove'
                     }
                 >
                     글자가 커진드아~
                 </h1>
             </div>
+            <div className="container"></div>
             <div ref={targetRef}>이벤트 발생위치</div>
             <button onClick={hello}>Change Text</button>
         </div>

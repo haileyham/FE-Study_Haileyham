@@ -1,5 +1,5 @@
 .box {
-    background-color: lightblue;
+    // background-color: lightblue;
     height: 2000px;
     margin-top: 500px;
 }
@@ -40,6 +40,11 @@
 
 .textMoving {
     text-align: center;
-    transform: scale(2);
+    transform: scale(5);
     transition: 1s;
+}
+
+.container {
+    margin-top: 50rem;
+    height: 50rem;
 }
