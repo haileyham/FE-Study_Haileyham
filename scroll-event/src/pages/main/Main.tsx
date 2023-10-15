@@ -69,8 +69,26 @@ export default function Main() {
         };
     }, []);
 
+    // 네비게이션 메뉴 항목 클릭 시 해당 위치로 스크롤
+    const scrollToPosition = (position: any) => {
+        window.scrollTo({
+            top: position,
+            behavior: 'smooth',
+        });
+    };
+
+    // 네비게이션 메뉴 항목 클릭 핸들러
+    const handleMenuClick = (position: any) => {
+        scrollToPosition(position);
+    };
+
     return (
         <div style={{ height: '1000vh' }}>
+            <nav className="navbar">
+                <span onClick={() => handleMenuClick(220)}>히히히</span>
+                <span onClick={() => handleMenuClick(2000)}>쿄쿄쿄</span>
+                <a href="#here">킝킝킝</a>
+            </nav>
             <div className="container">
                 <div
                     className={
@@ -118,7 +136,7 @@ export default function Main() {
                 </h1>
             </div>
             <div className="container">
-                <div ref={targetRef2} className="hidden observer">
+                <div ref={targetRef2} className="hidden observer" id="here">
                     이 요소가 관찰 대상
                 </div>
             </div>
