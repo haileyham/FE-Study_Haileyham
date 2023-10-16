@@ -92,11 +92,15 @@ export default function Main() {
 
     return (
         <div style={{ height: '1000vh' }}>
-            <nav className="navbar">
-                <span onClick={() => handleMenuClick(220)}>히히히</span>
-                <span onClick={() => handleMenuClick(2000)}>쿄쿄쿄</span>
-                <a href="#here">킝킝킝</a>
-            </nav>
+            {scrollPosition > 400 ? (
+                <nav className="navbar">
+                    <span onClick={() => handleMenuClick(220)}>히히히</span>
+                    <span onClick={() => handleMenuClick(2000)}>쿄쿄쿄</span>
+                    <a href="#here">킝킝킝</a>
+                </nav>
+            ) : (
+                ''
+            )}
             <div className="container">
                 <div
                     className={
