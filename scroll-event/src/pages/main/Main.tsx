@@ -92,8 +92,12 @@ export default function Main() {
 
     return (
         <div style={{ height: '1000vh' }}>
-            {scrollPosition > 400 ? (
-                <nav className="navbar">
+            {scrollPosition > 500 ? (
+                <nav
+                    className={`navbar ${
+                        scrollPosition > 900 ? 'navbar-fade-in' : ''
+                    }`}
+                >
                     <span onClick={() => handleMenuClick(220)}>히히히</span>
                     <span onClick={() => handleMenuClick(2000)}>쿄쿄쿄</span>
                     <a href="#here">킝킝킝</a>

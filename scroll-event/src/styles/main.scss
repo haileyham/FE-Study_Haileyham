@@ -76,6 +76,8 @@
     color: #fff;
     font-size: 2rem;
     z-index: 1;
+    opacity: 0; //초기설정 나타날때효과 위해
+    transition: opacity 0.5s;
     a {
         text-decoration: none;
         color: inherit;
@@ -86,4 +88,8 @@
         color: rgb(161, 107, 255);
         cursor: pointer;
     }
+}
+
+.navbar.navbar-fade-in {
+    opacity: 1;
 }
