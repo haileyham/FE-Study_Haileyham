@@ -17,7 +17,7 @@ export default function Main() {
     //sticky하는
     const handleScroll = () => {
         const scrollPosition = window.scrollY;
-        if (scrollPosition >= 1200) {
+        if (scrollPosition >= 2600) {
             setImg(2);
         } else {
             setImg(1);
@@ -44,12 +44,15 @@ export default function Main() {
     ///Observer
     const targetRef2 = useRef(null);
 
+    const [isVisible, setIsVisible] = useState(false);
     useEffect(() => {
         let observer = new IntersectionObserver((e) => {
             e.forEach((div) => {
                 if (div.isIntersecting) {
-                    div.target.classList.add('visible');
-                    observer.unobserve(div.target);
+                    setIsVisible(true);
+                } else {
+                    // 요소가 화면에서 사라졌을 때
+                    setIsVisible(false);
                 }
             });
         });
@@ -57,6 +60,11 @@ export default function Main() {
         if (targetRef2.current) {
             observer.observe(targetRef2.current);
         }
+
+        return () => {
+            // 컴포넌트가 언마운트될 때 옵저버 해제
+            observer.disconnect();
+        };
     }, []);
 
     //useEffect로
@@ -136,7 +144,11 @@ export default function Main() {
                 </h1>
             </div>
             <div className="container">
-                <div ref={targetRef2} className="hidden observer" id="here">
+                <div
+                    ref={targetRef2}
+                    className={isVisible ? 'visible observer' : 'hidden '}
+                    id="here"
+                >
                     이 요소가 관찰 대상
                 </div>
             </div>
