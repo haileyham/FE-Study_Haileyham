@@ -67,13 +67,29 @@ export default function Main() {
         };
     }, []);
 
+    const [progressBar, setProgressBar] = useState<number>();
+
+    // scroll progress bar
+    const progress = () => {
+        const totalPageHeight = Math.max(
+            document.documentElement.scrollHeight,
+            document.body.scrollHeight,
+        );
+        const percent =
+            (window.scrollY / (totalPageHeight - window.innerHeight)) * 100;
+        console.log(percent);
+        setProgressBar(percent);
+    };
+
     //useEffect로
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('scroll', throttledScrollHandler);
+        window.addEventListener('scroll', progress);
         return () => {
             window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('scroll', throttledScrollHandler);
+            window.removeEventListener('scroll', progress);
         };
     }, []);
 
@@ -92,6 +108,15 @@ export default function Main() {
 
     return (
         <div style={{ height: '1000vh' }}>
+            <div
+                style={{
+                    height: '50px',
+                    width: `${progressBar}%`,
+                    background: 'blue',
+                    position: 'fixed',
+                    top: '0',
+                }}
+            ></div>
             {scrollPosition > 500 ? (
                 <nav
                     className={`navbar ${
