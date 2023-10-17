@@ -93,3 +93,11 @@
 .navbar.navbar-fade-in {
     opacity: 1;
 }
+
+.progressBar {
+    height: 2rem;
+    background: linear-gradient(to right, #a0d5fa, #b168fa);
+    position: fixed;
+    top: 40px;
+    transition: all 0.8s;
+}
