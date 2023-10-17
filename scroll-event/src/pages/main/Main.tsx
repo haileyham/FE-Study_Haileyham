@@ -108,25 +108,26 @@ export default function Main() {
 
     return (
         <div style={{ height: '1000vh' }}>
-            <div
-                style={{
-                    height: '50px',
-                    width: `${progressBar}%`,
-                    background: 'blue',
-                    position: 'fixed',
-                    top: '0',
-                }}
-            ></div>
             {scrollPosition > 500 ? (
-                <nav
-                    className={`navbar ${
-                        scrollPosition > 900 ? 'navbar-fade-in' : ''
-                    }`}
-                >
-                    <span onClick={() => handleMenuClick(220)}>히히히</span>
-                    <span onClick={() => handleMenuClick(2000)}>쿄쿄쿄</span>
-                    <a href="#here">킝킝킝</a>
-                </nav>
+                <>
+                    <nav
+                        className={`navbar ${
+                            scrollPosition > 900 ? 'navbar-fade-in' : ''
+                        }`}
+                    >
+                        <span onClick={() => handleMenuClick(220)}>히히히</span>
+                        <span onClick={() => handleMenuClick(2000)}>
+                            쿄쿄쿄
+                        </span>
+                        <a href="#here">킝킝킝</a>
+                    </nav>
+                    <div
+                        className={scrollPosition > 900 ? 'progressBar' : ''}
+                        style={{
+                            width: `${progressBar}%`,
+                        }}
+                    ></div>
+                </>
             ) : (
                 ''
             )}
