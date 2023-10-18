@@ -103,11 +103,14 @@ export default function Main() {
         if (scrollPosition > 8500) {
             const calText = window.scrollY - 8500;
             // setTransText(calText);
-            console.log(transText);
+            // console.log(transText);
             // 계산된 값을 부드럽게 업데이트하기 위해 requestAnimationFrame 사용
             requestAnimationFrame(() => {
                 setTransText(calText);
             });
+        }
+        if (scrollPosition < 9500) {
+            setTransText(300);
         } else {
             setTransText(0);
         }
@@ -240,6 +243,20 @@ export default function Main() {
                     <span>HaileyHam</span>
                     <span>HaileyHam</span>
                     <span>HaileyHam</span>
+                    <span>HaileyHam</span>
+                </div>
+            </div>
+            <div className="container">
+                <div className="card-container" style={{ background: 'pink' }}>
+                    <div className="card">
+                        <img
+                            src={process.env.PUBLIC_URL + '/1.jpg'}
+                            alt="image1"
+                        />
+                    </div>
+                    <div className="card">3</div>
+                    <div className="card">4</div>
+                    <div className="card">2</div>
                 </div>
             </div>
         </div>

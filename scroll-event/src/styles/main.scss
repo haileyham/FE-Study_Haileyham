@@ -117,3 +117,13 @@
         color: #e0c3fc;
     }
 }
+
+.card-container {
+    display: flex;
+    gap: 30px;
+}
+
+.card {
+    width: 20rem;
+    background: #a0d5fa;
+}
