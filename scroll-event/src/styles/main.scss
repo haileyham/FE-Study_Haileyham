@@ -107,5 +107,13 @@
     height: 300px;
     background-color: yellow;
     margin: auto;
-    transition: all 0.5s;
+    transition: all 1s;
+}
+
+.move-letter {
+    transition: all 1s;
+    span {
+        font-size: 10rem;
+        color: #e0c3fc;
+    }
 }

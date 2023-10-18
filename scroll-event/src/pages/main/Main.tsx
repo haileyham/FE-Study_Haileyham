@@ -10,13 +10,14 @@ export default function Main() {
     const [scrollPosition, setScrollPosition] = useState(0);
 
     //찍어보기
-    window.addEventListener('scroll', function () {
-        console.log(window.scrollY);
-    });
+    // window.addEventListener('scroll', function () {
+    //     console.log(window.scrollY);
+    // });
 
     //sticky하는
     const handleScroll = () => {
         const scrollPosition = window.scrollY;
+        // console.log(scrollPosition);
         if (scrollPosition >= 2600) {
             setImg(2);
         } else {
@@ -28,7 +29,7 @@ export default function Main() {
     //지원안할수도있어서 추가
     const updateScroll = () => {
         setScrollPosition(window.scrollY || document.documentElement.scrollTop);
-        console.log(scrollPosition);
+        // console.log(scrollPosition);
     };
 
     //실험useRef
@@ -92,17 +93,39 @@ export default function Main() {
         setX(e.clientX);
         // console.log(x);
     };
+
     const throttleMouse = throttleUp(mouse, 300);
+
+    // MoveText
+    const [transText, setTransText] = useState<number>();
+
+    const moveText = () => {
+        if (scrollPosition > 8500) {
+            const calText = window.scrollY - 8500;
+            // setTransText(calText);
+            console.log(transText);
+            // 계산된 값을 부드럽게 업데이트하기 위해 requestAnimationFrame 사용
+            requestAnimationFrame(() => {
+                setTransText(calText);
+            });
+        } else {
+            setTransText(0);
+        }
+    };
+
+    const throttleText = throttleUp(moveText, 300);
 
     //useEffect로
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('scroll', throttledScrollHandler);
         window.addEventListener('scroll', progress);
+        window.addEventListener('scroll', throttleText);
         return () => {
             window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('scroll', throttledScrollHandler);
             window.removeEventListener('scroll', progress);
+            window.removeEventListener('scroll', throttleText);
         };
     }, []);
 
@@ -206,6 +229,18 @@ export default function Main() {
                     className="moveMouse"
                     style={{ marginLeft: `${x}px` }}
                 ></div>
+            </div>
+            <div className="container">
+                <div
+                    className="move-letter"
+                    style={{ transform: `translate(-${transText}px)` }}
+                >
+                    <span>HaileyHam</span>
+                    <span>HaileyHam</span>
+                    <span>HaileyHam</span>
+                    <span>HaileyHam</span>
+                    <span>HaileyHam</span>
+                </div>
             </div>
         </div>
     );
