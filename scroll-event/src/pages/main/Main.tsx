@@ -246,7 +246,7 @@ export default function Main() {
                     <span>HaileyHam</span>
                 </div>
             </div>
-            <div className="container">
+            <div className="container card-scroll-container">
                 <div className="card-container" style={{ background: 'pink' }}>
                     <div className="card">
                         <img
@@ -254,11 +254,30 @@ export default function Main() {
                             alt="image1"
                         />
                     </div>
-                    <div className="card">3</div>
-                    <div className="card">4</div>
-                    <div className="card">2</div>
+                    <div className="card">
+                        {' '}
+                        <img
+                            src={process.env.PUBLIC_URL + '/2.jpg'}
+                            alt="image2"
+                        />
+                    </div>
+                    <div className="card">
+                        {' '}
+                        <img
+                            src={process.env.PUBLIC_URL + '/3.jpg'}
+                            alt="image3"
+                        />
+                    </div>
+                    <div className="card">
+                        {' '}
+                        <img
+                            src={process.env.PUBLIC_URL + '/4.jpg'}
+                            alt="image4"
+                        />
+                    </div>
                 </div>
             </div>
+            <div className="container"></div>
         </div>
     );
 }
