@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import '../../styles/main.scss';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { ReactHTMLElement, useEffect, useRef, useState } from 'react';
 import { throttleUp } from '../../utils/throttleUp';
 
 export default function Main() {
@@ -80,6 +80,18 @@ export default function Main() {
         console.log(percent);
         setProgressBar(percent);
     };
+
+    // mouse
+    const [x, setX] = useState(0);
+
+    // handle mouse
+    const mouse = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        console.log(e.clientX);
+        // console.log(window.innerWidth);
+        setX(e.clientX);
+    };
+
+    const throttleMouse = throttleUp(mouse, 300);
 
     //useEffect로
     useEffect(() => {
@@ -188,6 +200,9 @@ export default function Main() {
             </div>
             <div ref={targetRef}>이벤트 발생위치</div>
             <button onClick={hello}>Change Text</button>
+            <div className="container" onMouseMove={(e) => throttleMouse(e)}>
+                <div className="moveMouse"></div>
+            </div>
         </div>
     );
 }
