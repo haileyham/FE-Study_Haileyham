@@ -82,15 +82,16 @@ export default function Main() {
     };
 
     // mouse
-    const [x, setX] = useState(0);
+    const [x, setX] = useState<number>();
 
     // handle mouse
+
     const mouse = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
         console.log(e.clientX);
         // console.log(window.innerWidth);
         setX(e.clientX);
+        // console.log(x);
     };
-
     const throttleMouse = throttleUp(mouse, 300);
 
     //useEffect로
@@ -201,7 +202,10 @@ export default function Main() {
             <div ref={targetRef}>이벤트 발생위치</div>
             <button onClick={hello}>Change Text</button>
             <div className="container" onMouseMove={(e) => throttleMouse(e)}>
-                <div className="moveMouse"></div>
+                <div
+                    className="moveMouse"
+                    style={{ marginLeft: `${x}px` }}
+                ></div>
             </div>
         </div>
     );
