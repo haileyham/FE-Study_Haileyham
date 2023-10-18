@@ -104,13 +104,11 @@ export default function Main() {
             const calText = window.scrollY - 8500;
             // setTransText(calText);
             // console.log(transText);
+            console.log(calText);
             // 계산된 값을 부드럽게 업데이트하기 위해 requestAnimationFrame 사용
             requestAnimationFrame(() => {
                 setTransText(calText);
             });
-        }
-        if (scrollPosition < 9500) {
-            setTransText(300);
         } else {
             setTransText(0);
         }
@@ -130,7 +128,7 @@ export default function Main() {
             window.removeEventListener('scroll', progress);
             window.removeEventListener('scroll', throttleText);
         };
-    }, []);
+    }, [scrollPosition]);
 
     // 네비게이션 메뉴 항목 클릭 시 해당 위치로 스크롤
     const scrollToPosition = (position: any) => {
@@ -247,7 +245,10 @@ export default function Main() {
                 </div>
             </div>
             <div className="container card-scroll-container">
-                <div className="card-container" style={{ background: 'pink' }}>
+                <div
+                    className="card-container"
+                    style={{ transform: `translate(-300px)` }}
+                >
                     <div className="card">
                         <img
                             src={process.env.PUBLIC_URL + '/1.jpg'}
