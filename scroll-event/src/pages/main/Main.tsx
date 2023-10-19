@@ -104,6 +104,7 @@ export default function Main() {
             const calText = window.scrollY - 8500;
             // setTransText(calText);
             // console.log(transText);
+            console.log(scrollPosition);
             console.log(calText);
             // 계산된 값을 부드럽게 업데이트하기 위해 requestAnimationFrame 사용
             requestAnimationFrame(() => {
@@ -116,17 +117,33 @@ export default function Main() {
 
     const throttleText = throttleUp(moveText, 300);
 
+    //MoveCard
+    const [moveXcard, setMoveXCard] = useState<number>(0);
+
+    const moveCard = () => {
+        if (scrollPosition > 11150) {
+            const calCard = scrollPosition - 11150;
+            setMoveXCard(calCard);
+        } else {
+            setMoveXCard(0);
+        }
+    };
+
+    const throttleCard = throttleUp(moveCard, 300);
+
     //useEffect로
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         window.addEventListener('scroll', throttledScrollHandler);
         window.addEventListener('scroll', progress);
         window.addEventListener('scroll', throttleText);
+        window.addEventListener('scroll', throttleCard);
         return () => {
             window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('scroll', throttledScrollHandler);
             window.removeEventListener('scroll', progress);
             window.removeEventListener('scroll', throttleText);
+            window.removeEventListener('scroll', throttleCard);
         };
     }, [scrollPosition]);
 
@@ -247,7 +264,7 @@ export default function Main() {
             <div className="container card-scroll-container">
                 <div
                     className="card-container"
-                    style={{ transform: `translate(-300px)` }}
+                    style={{ transform: `translate(-${moveXcard}px)` }}
                 >
                     <div className="card">
                         <img

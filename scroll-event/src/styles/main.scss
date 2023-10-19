@@ -120,7 +120,7 @@
 
 .card-scroll-container {
     background-color: pink;
-    height: 150rem;
+    height: 190rem;
 }
 
 .card-container {
@@ -129,6 +129,7 @@
     width: 200rem;
     position: sticky;
     top: 10rem;
+    transition: all 1s;
 }
 
 .card {
