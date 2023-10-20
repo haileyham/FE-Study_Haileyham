@@ -119,13 +119,44 @@ export default function Main() {
 
     //MoveCard
     const [moveXcard, setMoveXCard] = useState<number>(0);
+    //끝에서 멈춤
+    const [isCardContainerVisible, setIsCardContainerVisible] = useState(false);
+    const cardContainerRef = useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                // console.log(entry.isIntersecting);
+                if (entry.isIntersecting) {
+                    // .card-container가 화면에 보일 때 이동을 멈추기
+                    setIsCardContainerVisible(true);
+                } else {
+                    setIsCardContainerVisible(false);
+                }
+            },
+            {
+                root: null, // viewport를 기준으로 화면에 보이는지 확인
+                rootMargin: '0px', // root와 교차하는 부분을 얼마나 넓게 할 것인지 지정
+                threshold: 0.5, // target 요소가 화면에 100% 보일 때 콜백 실행
+            },
+        );
+
+        if (cardContainerRef.current) {
+            observer.observe(cardContainerRef.current);
+        }
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+    console.log(isCardContainerVisible);
 
     const moveCard = () => {
-        if (scrollPosition > 11150) {
+        if (!isCardContainerVisible && scrollPosition > 11150) {
             const calCard = scrollPosition - 11150;
             setMoveXCard(calCard);
-        } else {
-            setMoveXCard(0);
         }
     };
 
@@ -286,7 +317,7 @@ export default function Main() {
                             alt="image3"
                         />
                     </div>
-                    <div className="card">
+                    <div className="card" ref={cardContainerRef}>
                         {' '}
                         <img
                             src={process.env.PUBLIC_URL + '/4.jpg'}
