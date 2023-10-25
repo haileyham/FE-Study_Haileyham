@@ -8,104 +8,111 @@ import { styled } from 'styled-components';
 const socket = io.connect("http://localhost:3001") //back에서는 3000으로 front에서는 3001 / io.connect 함수 사용하여 server, socket 연결 / 주의할 점은 server와 client 간의 socket 통신을 위해 동일한 Socket.io 버전 사용해야 함
 
 export default function ChatRoom(props) {
-    const [message, setMessage] = useState(""); //input 입력한 것 message에 담기
-    // const [messageReceived, setMessageReceived] = useState(""); //서버 수신 메시지
-    const [chatMessage, setChatMessage] = useState([]); // 모든 채팅 메시지 저장
+  const [message, setMessage] = useState(""); //input 입력한 것 message에 담기
+  // const [messageReceived, setMessageReceived] = useState(""); //서버 수신 메시지
+  const [chatMessage, setChatMessage] = useState([]); // 모든 채팅 메시지 저장
 
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const username = searchParams.get('username');
-    const room = searchParams.get('room');
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const username = searchParams.get('username');
+  const room = searchParams.get('room');
 
 
-    // 전체 메시지 전달
-    const sendMessage = () => {
-        socket.emit("send_message", { message, user: username }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달 // input으로 받은 message 서버로 전송
-        setChatMessage([...chatMessage, { message, user: username }]);//모든 채팅 메시지 저장하기 위해서 배열로 저장 / 기존것에 input message 입력한 것과 user 구분
-        setMessage(""); //input 입력하는 메시지 useState는 초기화
-        console.log(chatMessage)
+  // 전체 메시지 전달
+  const sendMessage = () => {
+    socket.emit("send_message", { message, user: username }); // socket.io 사용하여 client에서 server로 데이터 전송 / 첫번째 매개변수 이벤트 이름 지정, 두번째 매개변수로 데이터 전달 // input으로 받은 message 서버로 전송
+    setChatMessage([...chatMessage, { message, user: username }]);//모든 채팅 메시지 저장하기 위해서 배열로 저장 / 기존것에 input message 입력한 것과 user 구분
+    setMessage(""); //input 입력하는 메시지 useState는 초기화
+    console.log(chatMessage)
 
-    };
+  };
 
-    // 방 접속
-    const joinRoom = () => {
-        if (room !== "") {
-            socket.emit("join_room", room);
-        }
+  // 방 접속
+  const joinRoom = () => {
+    if (room !== "") {
+      socket.emit("join_room", room);
     }
+  }
 
-    const now = new Date();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
-    const messageWithTime = `${currentHour}:${currentMinute}`;
+  const now = new Date();
+  const currentHour = now.getHours();
+  const currentMinute = now.getMinutes();
+  const messageWithTime = `${currentHour}:${currentMinute}`;
 
-    // 방 메시지 전달
-    const sendMessageRoom = () => {
-        socket.emit("send_message_Room", { message, room, user: username, time: messageWithTime })
-        setChatMessage([...chatMessage, { message, user: username, time: messageWithTime }]);//모든 채팅 메시지 저장하기 위해서 배열로 저장 / 기존것에 input message 입력한 것과 user 구분
-        setMessage(""); //input 입력하는 메시지 useState는 초기화
-        console.log(chatMessage)
-    }
+  // 방 메시지 전달
+  const sendMessageRoom = () => {
+    socket.emit("send_message_Room", { message, room, user: username, time: messageWithTime })
+    setChatMessage([...chatMessage, { message, user: username, time: messageWithTime }]);//모든 채팅 메시지 저장하기 위해서 배열로 저장 / 기존것에 input message 입력한 것과 user 구분
+    setMessage(""); //input 입력하는 메시지 useState는 초기화
+    console.log(chatMessage)
+  }
 
-    // 방입장
-    const notifyUserJoin = () => {
-        socket.emit("user_join", { room, user: username });
-    }
+  // input 창 enter 키 눌러서 Room으로 메시지 전달 (form 태그 안에 button 태그 type="submit" 방전달에만 달았음)
+  const handleSubmit = (e) => {
+    e.preventDefault(); // 폼 제출 기본 동작 중단
+    // 폼 제출 시 수행할 로직을 여기에 추가
+  }
 
-    useEffect(() => {
-        joinRoom();
-        notifyUserJoin();
-    }, []);
+  // 방입장
+  const notifyUserJoin = () => {
+    socket.emit("user_join", { room, user: username });
+  }
 
-    useEffect(() => {
-        socket.on("receive_message", (data) => { //서버에서 보낸 것 수신
-            setChatMessage([...chatMessage, { message: data.message, user: data.user, time: messageWithTime }]) //서버에서 받은 것 messageReceived에 담기
-        })
-        // console.log(chatMessage)
-    }, [socket, chatMessage])
+  useEffect(() => {
+    joinRoom();
+    notifyUserJoin();
+  }, []);
 
-    return (
-        <div className="App">
-            <ChattingContainer>
-                <Header>
-                    <Heading>Room : {room}</Heading>
-                    <p>myname : {username}</p>
-                </Header>
-                <MessageList>
-                    <p style={{ color: "#525252" }}>- <strong>{username}</strong>님 <strong>{room}</strong>번방에 오신 것을 환영합니다. 자유롭게 대화를 나누세요. -</p>
-                    {chatMessage.map((chat, i) => (
-                        <div key={i}>
-                            {chat.user === "관리자" ?
-                                <SystemMessage>{chat.message} </SystemMessage> : chat.user === username ?
-                                    <>
-                                        <MessageMe>
-                                            <UsernameMe>You</UsernameMe>
-                                            {chat.message}
-                                            <TimeMe>{chat.time}</TimeMe>
-                                        </MessageMe>
-                                    </>
-                                    :
-                                    <>
-                                        <MessageSomeone>
-                                            <UsernameSomeone>{username}</UsernameSomeone>
-                                            {chat.message}
-                                            <TimeSomeone>{chat.time}</TimeSomeone>
-                                        </MessageSomeone>
-                                    </>
-                            }
-                        </div>
-                    ))}
-                </MessageList>
-            </ChattingContainer>
-            <ChattingBox>
-                <ChattingInput placeholder="Message..."
-                    onChange={(e) => { setMessage(e.target.value) }} />
-                <ChattingSendBtn onClick={sendMessage}>Send</ChattingSendBtn>
-                {/* messageReceived 서버로부터 받은 것 보여주기 */}
-                <ChattingSendBtn onClick={sendMessageRoom}>Room에만</ChattingSendBtn>
-            </ChattingBox>
-        </div>
-    );
+  useEffect(() => {
+    socket.on("receive_message", (data) => { //서버에서 보낸 것 수신
+      setChatMessage([...chatMessage, { message: data.message, user: data.user, time: messageWithTime }]) //서버에서 받은 것 messageReceived에 담기
+    })
+    // console.log(chatMessage)
+  }, [socket, chatMessage])
+
+  return (
+    <div className="App">
+      <ChattingContainer>
+        <Header>
+          <Heading>Room : {room}</Heading>
+          <p>myname : {username}</p>
+        </Header>
+        <MessageList>
+          <p style={{ color: "#525252" }}>- <strong>{username}</strong>님 <strong>{room}</strong>번방에 오신 것을 환영합니다. 자유롭게 대화를 나누세요. -</p>
+          {chatMessage.map((chat, i) => (
+            <div key={i}>
+              {chat.user === "관리자" ?
+                <SystemMessage>{chat.message} </SystemMessage> : chat.user === username ?
+                  <>
+                    <MessageMe>
+                      <UsernameMe>You</UsernameMe>
+                      {chat.message}
+                      <TimeMe>{chat.time}</TimeMe>
+                    </MessageMe>
+                  </>
+                  :
+                  <>
+                    <MessageSomeone>
+                      <UsernameSomeone>{username}</UsernameSomeone>
+                      {chat.message}
+                      <TimeSomeone>{chat.time}</TimeSomeone>
+                    </MessageSomeone>
+                  </>
+              }
+            </div>
+          ))}
+        </MessageList>
+      </ChattingContainer>
+      <ChattingBox onSubmit={handleSubmit}>
+        <ChattingInput placeholder="Message..."
+          onChange={(e) => { setMessage(e.target.value) }}
+        />
+        <ChattingSendBtn onClick={sendMessage}>Send</ChattingSendBtn>
+        {/* messageReceived 서버로부터 받은 것 보여주기 */}
+        <ChattingSendBtn type="submit" onClick={sendMessageRoom}>Room에만</ChattingSendBtn>
+      </ChattingBox>
+    </div>
+  );
 }
 
 
@@ -127,7 +134,7 @@ const Heading = styled.h1`
     padding: 0;
 `;
 
-const ChattingBox = styled.div`
+const ChattingBox = styled.form`
     position: absolute;
     bottom: 0;
     display: flex;
