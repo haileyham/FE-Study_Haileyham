@@ -106,6 +106,7 @@ export default function ChatRoom(props) {
       <ChattingBox onSubmit={handleSubmit}>
         <ChattingInput placeholder="Message..."
           onChange={(e) => { setMessage(e.target.value) }}
+          value={message}
         />
         <ChattingSendBtn onClick={sendMessage}>Send</ChattingSendBtn>
         {/* messageReceived 서버로부터 받은 것 보여주기 */}
