@@ -158,6 +158,9 @@ export default function Main() {
             const calCard = scrollPosition - 11150;
             setMoveXCard(calCard);
         }
+        if (scrollPosition > 14000) {
+            setIsCardContainerVisible(false);
+        }
     };
 
     const throttleCard = throttleUp(moveCard, 300);
