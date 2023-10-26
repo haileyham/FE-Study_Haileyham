@@ -41,16 +41,24 @@ export default function ChatRoom(props) {
 
   // 방 메시지 전달
   const sendMessageRoom = () => {
-    socket.emit("send_message_Room", { message, room, user: username, time: messageWithTime })
-    setChatMessage([...chatMessage, { message, user: username, time: messageWithTime }]);//모든 채팅 메시지 저장하기 위해서 배열로 저장 / 기존것에 input message 입력한 것과 user 구분
-    setMessage(""); //input 입력하는 메시지 useState는 초기화
-    console.log(chatMessage)
+    if (message.trim() === '') {
+      alert('빈값안됨')
+      return;
+    } else {
+      socket.emit("send_message_Room", { message, room, user: username, time: messageWithTime })
+      setChatMessage([...chatMessage, { message, user: username, time: messageWithTime }]);//모든 채팅 메시지 저장하기 위해서 배열로 저장 / 기존것에 input message 입력한 것과 user 구분
+      setMessage(""); //input 입력하는 메시지 useState는 초기화
+      console.log(chatMessage)
+    }
   }
 
   // input 창 enter 키 눌러서 Room으로 메시지 전달 (form 태그 안에 button 태그 type="submit" 방전달에만 달았음)
   const handleSubmit = (e) => {
     e.preventDefault(); // 폼 제출 기본 동작 중단
     // 폼 제출 시 수행할 로직을 여기에 추가
+    // if (message.trim() === '') {
+    //   alert('안돼앵')
+    // }
   }
 
   // 방입장
